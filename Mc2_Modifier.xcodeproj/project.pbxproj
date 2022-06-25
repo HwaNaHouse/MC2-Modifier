@@ -13,6 +13,18 @@
 		3152918D28644E3F0078809B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3152918C28644E3F0078809B /* Preview Assets.xcassets */; };
 		3152918F28644E3F0078809B /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3152918E28644E3F0078809B /* Persistence.swift */; };
 		3152919228644E3F0078809B /* Mc2_Modifier.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3152919028644E3F0078809B /* Mc2_Modifier.xcdatamodeld */; };
+		315291A82864534B0078809B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291A72864534A0078809B /* MainView.swift */; };
+		315291AA286453780078809B /* StateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291A9286453780078809B /* StateManager.swift */; };
+		315291AC286455730078809B /* FullScreenSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291AB286455730078809B /* FullScreenSheet.swift */; };
+		315291B2286538940078809B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B1286538940078809B /* MapView.swift */; };
+		315291B4286538B70078809B /* TotalTripview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B3286538B70078809B /* TotalTripview.swift */; };
+		315291B6286538D00078809B /* CategoryListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B5286538D00078809B /* CategoryListView.swift */; };
+		315291B8286538E10078809B /* PinListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B7286538E10078809B /* PinListView.swift */; };
+		315291BA286538E80078809B /* PinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B9286538E80078809B /* PinDetailView.swift */; };
+		315291BE28653B050078809B /* PinAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BD28653B050078809B /* PinAddView.swift */; };
+		315291C028653B0F0078809B /* PinUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BF28653B0F0078809B /* PinUpdateView.swift */; };
+		315291C228653FEC0078809B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C128653FEC0078809B /* SheetView.swift */; };
+		315291C42865400A0078809B /* CategoryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C32865400A0078809B /* CategoryAddView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +35,18 @@
 		3152918C28644E3F0078809B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3152918E28644E3F0078809B /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		3152919128644E3F0078809B /* Mc2_Modifier.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mc2_Modifier.xcdatamodel; sourceTree = "<group>"; };
+		315291A72864534A0078809B /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		315291A9286453780078809B /* StateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateManager.swift; sourceTree = "<group>"; };
+		315291AB286455730078809B /* FullScreenSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenSheet.swift; sourceTree = "<group>"; };
+		315291B1286538940078809B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		315291B3286538B70078809B /* TotalTripview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalTripview.swift; sourceTree = "<group>"; };
+		315291B5286538D00078809B /* CategoryListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListView.swift; sourceTree = "<group>"; };
+		315291B7286538E10078809B /* PinListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinListView.swift; sourceTree = "<group>"; };
+		315291B9286538E80078809B /* PinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDetailView.swift; sourceTree = "<group>"; };
+		315291BD28653B050078809B /* PinAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinAddView.swift; sourceTree = "<group>"; };
+		315291BF28653B0F0078809B /* PinUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinUpdateView.swift; sourceTree = "<group>"; };
+		315291C128653FEC0078809B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		315291C32865400A0078809B /* CategoryAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +79,9 @@
 		3152918428644E3E0078809B /* Mc2_Modifier */ = {
 			isa = PBXGroup;
 			children = (
+				315291A4286453090078809B /* Model */,
+				315291A5286453150078809B /* ViewModel */,
+				315291A62864531A0078809B /* View */,
 				3152918528644E3E0078809B /* Mc2_ModifierApp.swift */,
 				3152918728644E3E0078809B /* ContentView.swift */,
 				3152918928644E3F0078809B /* Assets.xcassets */,
@@ -71,6 +98,71 @@
 				3152918C28644E3F0078809B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		315291A4286453090078809B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		315291A5286453150078809B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				315291A9286453780078809B /* StateManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		315291A62864531A0078809B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				315291B0286538750078809B /* PinDetailView */,
+				315291AF2865386C0078809B /* PinListView */,
+				315291AE286538640078809B /* CategoryListView */,
+				315291AD286538460078809B /* MapView */,
+				315291A72864534A0078809B /* MainView.swift */,
+				315291AB286455730078809B /* FullScreenSheet.swift */,
+				315291C128653FEC0078809B /* SheetView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		315291AD286538460078809B /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				315291B1286538940078809B /* MapView.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		315291AE286538640078809B /* CategoryListView */ = {
+			isa = PBXGroup;
+			children = (
+				315291B3286538B70078809B /* TotalTripview.swift */,
+				315291B5286538D00078809B /* CategoryListView.swift */,
+				315291C32865400A0078809B /* CategoryAddView.swift */,
+			);
+			path = CategoryListView;
+			sourceTree = "<group>";
+		};
+		315291AF2865386C0078809B /* PinListView */ = {
+			isa = PBXGroup;
+			children = (
+				315291B7286538E10078809B /* PinListView.swift */,
+			);
+			path = PinListView;
+			sourceTree = "<group>";
+		};
+		315291B0286538750078809B /* PinDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				315291B9286538E80078809B /* PinDetailView.swift */,
+				315291BD28653B050078809B /* PinAddView.swift */,
+				315291BF28653B0F0078809B /* PinUpdateView.swift */,
+			);
+			path = PinDetailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,8 +236,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				3152918F28644E3F0078809B /* Persistence.swift in Sources */,
+				315291B2286538940078809B /* MapView.swift in Sources */,
+				315291C42865400A0078809B /* CategoryAddView.swift in Sources */,
 				3152919228644E3F0078809B /* Mc2_Modifier.xcdatamodeld in Sources */,
+				315291BA286538E80078809B /* PinDetailView.swift in Sources */,
+				315291B8286538E10078809B /* PinListView.swift in Sources */,
+				315291B4286538B70078809B /* TotalTripview.swift in Sources */,
+				315291B6286538D00078809B /* CategoryListView.swift in Sources */,
+				315291C228653FEC0078809B /* SheetView.swift in Sources */,
 				3152918828644E3E0078809B /* ContentView.swift in Sources */,
+				315291BE28653B050078809B /* PinAddView.swift in Sources */,
+				315291AA286453780078809B /* StateManager.swift in Sources */,
+				315291AC286455730078809B /* FullScreenSheet.swift in Sources */,
+				315291C028653B0F0078809B /* PinUpdateView.swift in Sources */,
+				315291A82864534B0078809B /* MainView.swift in Sources */,
 				3152918628644E3E0078809B /* Mc2_ModifierApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

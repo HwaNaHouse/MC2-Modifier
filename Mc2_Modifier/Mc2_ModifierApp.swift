@@ -10,10 +10,13 @@ import SwiftUI
 @main
 struct Mc2_ModifierApp: App {
     let persistenceController = PersistenceController.shared
+    
+    let stateManage = StateManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(stateManage)
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
