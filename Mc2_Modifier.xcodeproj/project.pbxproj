@@ -79,7 +79,6 @@
 		3152918428644E3E0078809B /* Mc2_Modifier */ = {
 			isa = PBXGroup;
 			children = (
-				315291A4286453090078809B /* Model */,
 				315291A5286453150078809B /* ViewModel */,
 				315291A62864531A0078809B /* View */,
 				3152918528644E3E0078809B /* Mc2_ModifierApp.swift */,
@@ -98,13 +97,6 @@
 				3152918C28644E3F0078809B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		315291A4286453090078809B /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		315291A5286453150078809B /* ViewModel */ = {
