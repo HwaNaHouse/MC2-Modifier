@@ -8,28 +8,103 @@
 import SwiftUI
 
 //MARK: - MainView's subviews...
-struct CircleView: View { //location, pin, map buttons...etc...
-    var imageName: String
-    var size: CGFloat
-    var font: Font
+//category menu picker label
+struct MenuLabel: View {
+    var title: String
     
     var body: some View {
-        Circle()
-            .frame(width: size, height: size)
-            .foregroundColor(.white)
-            .weakShadow()
-            .overlay(
-                Image(systemName: imageName)
-                    .font(font)
-                    .foregroundColor(.black)
+        WhiteBackground(RoundedRectangle(cornerRadius: 10, style: .continuous), w: .infinity, h: 44) {
+                HStack {
+                    Text(title)
+                        .font(.title3)
+                        .fontWeight(.black)
+                    Spacer()
+                    Image(systemName: "chevron.down")
+                        .font(.callout.bold())
+                        .layoutPriority(1)
+                }
+                .foregroundColor(.blue)
+            }
+    }
+}
+
+//beside menulabel. create category
+struct PlusLabel: View {
+    var body: some View {
+        WhiteBackground(RoundedRectangle(cornerRadius: 10), w: 44, h: 44) {
+            Image(systemName: "plus")
+                .font(.title2)
+                .foregroundColor(.blue)
+        }
+    }
+}
+
+//pin making button label
+struct PinButtonLabel: View {
+    var isActive: Bool
+    
+    var body: some View {
+        if isActive {
+            Circle()
+                .frame(width: 70, height: 70)
+                .foregroundColor(.red)
+                .overlay(
+                    Image(systemName: "xmark")
+                        .font(.largeTitle)
+                        .foregroundColor(.white)
+                )
+        } else {
+            WhiteBackground(Circle(), w: 71, h: 71) {
+                Image("redPin")
+            }
+        }
+    }
+}
+
+//location.fill & map.fill button label
+struct SideButtonLabel: View {
+    var systemImage: String
+    
+    init(image systemImage: String) {
+        self.systemImage = systemImage
+    }
+    var body: some View {
+        WhiteBackground(Circle(), w: 50, h: 50) {
+            Image(systemName: systemImage)
+                .font(.title2)
+                .foregroundColor(.black)
+        }
+    }
+}
+
+//white color background and weak shadow
+struct WhiteBackground<S: Shape, Content: View>: View {
+    var shape: S
+    var width: CGFloat
+    var height: CGFloat
+    var content: () -> Content
+
+    init(_ shape: S, w shapeWidth: CGFloat, h shapeHeight: CGFloat, @ViewBuilder content: @escaping () -> Content) {
+        self.shape = shape
+        self.width = shapeWidth
+        self.height = shapeHeight
+        self.content = content
+    }
+    var body: some View {
+        content()
+            .maxFrame(width, height) //extension
+            .background(
+                shape
+                    .foregroundColor(.white)
+                    .weakShadow() //extension
             )
     }
 }
 
 
-//MARK: - PinView's subviews...
-//two shapes - default shape & selected shape
-struct DefaultPin: View {
+//MARK: - PinView's subviews
+//2 types
+struct DefaultPin: View { //mapView & detailView will use...
     var pin: Pin
     
     var body: some View {
@@ -45,7 +120,7 @@ struct DefaultPin: View {
     }
 }
 
-struct SelectedPin: View {
+struct SelectedPin: View { //mapView will use...
     var pin: Pin
     
     var body: some View {

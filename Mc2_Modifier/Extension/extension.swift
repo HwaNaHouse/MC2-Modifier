@@ -19,4 +19,9 @@ extension View {
         self
             .shadow(color: .black.opacity(0.1), radius: 2, x: 0.5, y: 0.5)
     }
+    
+    func maxFrame(_ width: CGFloat, _ height: CGFloat) -> some View {
+        self
+            .frame(maxWidth: width, maxHeight: height)
+    }
 }
