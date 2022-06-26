@@ -4,16 +4,25 @@
 //
 //  Created by Hyeonsoo Kim on 2022/06/25.
 //
+/*  Layout Size
+ 
+ 1. 고정 size
+    - PinView
+ 
+ 2. Dynamic size
+    - 그 외
+ */
 
 import SwiftUI
 
 //MARK: - MainView's subviews...
+
 //category menu picker label
 struct MenuLabel: View {
     var title: String
     
     var body: some View {
-        WhiteBackground(RoundedRectangle(cornerRadius: 10, style: .continuous), w: .infinity, h: 44) {
+        WhiteBackground(RoundedRectangle(cornerRadius: 10, style: .continuous), w: .infinity, h: .ten*4.4) {
                 HStack {
                     Text(title)
                         .font(.title3)
@@ -31,7 +40,7 @@ struct MenuLabel: View {
 //beside menulabel. create category
 struct PlusLabel: View {
     var body: some View {
-        WhiteBackground(RoundedRectangle(cornerRadius: 10), w: 44, h: 44) {
+        WhiteBackground(RoundedRectangle(cornerRadius: 10), w: .ten*4.4, h: .ten*4.4) {
             Image(systemName: "plus")
                 .font(.title2)
                 .foregroundColor(.blue)
@@ -46,7 +55,7 @@ struct PinButtonLabel: View {
     var body: some View {
         if isActive {
             Circle()
-                .frame(width: 70, height: 70)
+                .frame(width: .ten*7, height: .ten*7)
                 .foregroundColor(.red)
                 .overlay(
                     Image(systemName: "xmark")
@@ -54,7 +63,7 @@ struct PinButtonLabel: View {
                         .foregroundColor(.white)
                 )
         } else {
-            WhiteBackground(Circle(), w: 71, h: 71) {
+            WhiteBackground(Circle(), w: .ten*7+1, h: .ten*7+1) {
                 Image("redPin")
             }
         }
@@ -69,7 +78,7 @@ struct SideButtonLabel: View {
         self.systemImage = systemImage
     }
     var body: some View {
-        WhiteBackground(Circle(), w: 50, h: 50) {
+        WhiteBackground(Circle(), w: .ten*5, h: .ten*5) {
             Image(systemName: systemImage)
                 .font(.title2)
                 .foregroundColor(.black)

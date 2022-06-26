@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-
-extension UIScreen {
-    static let width = UIScreen.main.bounds.width
-    static let height = UIScreen.main.bounds.height
+extension CGFloat {
+    static let screenW = UIScreen.main.bounds.width
+    static let screenH = UIScreen.main.bounds.height
+    
+    static let ten = UIScreen.main.bounds.width / 39 //iPhon13기준 10... 세밀한 dynamic 크기 작업위해...
 }
-
 
 extension View {
     func weakShadow() -> some View { //MainView components들의 shadow.
