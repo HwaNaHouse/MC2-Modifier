@@ -46,11 +46,8 @@ struct TotalTripview: View {
                 Spacer().frame(height: sm.tnSheet == .low ? 20: 50)
                 
                 //탐나 시트 내부에 CategoryListView
-                if sm.isPinListShow {
-                    PinListView()
-                } else {
+               
                     CategoryListView()
-                }
                 
             }
         }

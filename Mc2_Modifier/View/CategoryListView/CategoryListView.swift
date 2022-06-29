@@ -19,111 +19,123 @@ struct CategoryListView: View {
     @State var effectID = 0
     
     var body: some View {
-        ScrollView {
-            VStack {
-                //Safetyarea와 Navbar 영역을 보완
-                Color.clear.frame(height: sm.tnSheet == .low ? 50 : 110 )
-                
-                HStack {
-                    Text("Total Trip")
-                        .foregroundColor(.black)
-                        .font(.system(size: 20))
-                        .fontWeight(.bold)
-                        
-                    Spacer()
-                }
-                .padding(.leading, 23)
-                .padding(.bottom, 19)
-                .padding(.top, 33)
-                
-                ForEach(0..<10) { _ in
-                    categoryCard()
-                }
-                
-            }
-            .background(GeometryReader {
-                Color.clear.preference(key: ViewOffsetKey.self,
-                    value: -$0.frame(in: .named("scroll")).origin.y)
-            })
-            // 스크롤 값 변화에 따른 연산
-            .onPreferenceChange(ViewOffsetKey.self) {
-                isOffset = $0
-                if sm.tnSheet == .high && (isOffset - isNavbarOffset) < -140 {
-                    withAnimation {
-                        sm.tnSheet = .low
-                    }
+        if sm.isPinListShow {
+            PinListView(effectID: $effectID, namespace: namespace)
+        } else {
+            ScrollView {
+                VStack {
+                    //Safetyarea와 Navbar 영역을 보완
+                    Color.clear.frame(height: sm.tnSheet == .low ? 50 : 110 )
                     
-                }
-            }
-
-            Button(action: {
-                sm.tnSheet = .low
-            }, label: {
-                Text("TNSheet go to low")
-            })
-            
-            Button(action: {
-                sm.isPinListShow = true
-            }, label: {
-                Text("PinList Show")
-            })
-        }
-        .coordinateSpace(name: "scroll")
-        .background{
-            Color("backgroundColor")
-        }
-        .overlay(alignment: .top) {
-            VStack {
-                //Category Sheet 상단 네브바 역할
-                HStack {
-                    Text("My Moment")
-                        .font(.system(size: sm.tnSheet == .low ? 20 : 24))
-                        .fontWeight(.bold)
-                    Spacer()
-                    if sm.tnSheet == .high {
-                        Button(action: {
-                            sm.isSheetShow = true
-                        }, label: {
-                            Image(systemName: "plus")
-                                .font(.system(size: 20, weight: .regular))
-                                .foregroundColor(.black)
-                                .background{
-                                    Circle()
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(.white)
-                                        .shadow(color: .black.opacity(0.12), radius: 26, x: 0, y: 0)
+                    HStack {
+                        Text("Total Trip")
+                            .foregroundColor(.black)
+                            .font(.system(size: 20))
+                            .fontWeight(.bold)
+                            
+                        Spacer()
+                    }
+                    .padding(.leading, 23)
+                    .padding(.bottom, 19)
+                    .padding(.top, 33)
+                    
+                    ForEach(0..<10) { i in
+                        categoryCard()
+                            .matchedGeometryEffect(id: i, in: namespace)
+                            .onTapGesture(perform: {
+                                withAnimation{
+                                    sm.isPinListShow = true
+                                    self.effectID = i
                                 }
-                        })
-                        .padding(.trailing, 10)
+                            })
                     }
                     
-                    
                 }
-                //TNSheet가 low에 있을 때 offset을 통해 위치를 조정해 준다
-                .offset(y: sm.tnSheet == .low ? -20 : 0)
+                //Scroll 값을 계산할 Layer
                 .background(GeometryReader {
                     Color.clear.preference(key: ViewOffsetKey.self,
-                        value: -$0.frame(in: .named("navbar")).origin.y)
+                        value: -$0.frame(in: .named("scroll")).origin.y)
                 })
                 // 스크롤 값 변화에 따른 연산
                 .onPreferenceChange(ViewOffsetKey.self) {
-                    isNavbarOffset = $0
+                    isOffset = $0
+                    if sm.tnSheet == .high && (isOffset - isNavbarOffset) < -140 {
+                        withAnimation {
+                            sm.tnSheet = .low
+                        }
+                        
+                    }
                 }
-                .padding(.top, 30)
-                .padding(.horizontal, 21)
-                .padding(.bottom, 4)
-                }
-                .coordinateSpace(name: "navbar")
-                //TNSheet가 low에 있을 때 offset을 통해 크기를 조정해 준다
-                .frame(height: sm.tnSheet == .low ? 50 : 110)
-                .background{
-                    Color.white.frame(maxWidth: .infinity)
-                Spacer()
+
+                Button(action: {
+                    sm.tnSheet = .low
+                }, label: {
+                    Text("TNSheet go to low")
+                })
+                
+                Button(action: {
+                    sm.isPinListShow = true
+                }, label: {
+                    Text("PinList Show")
+                })
             }
-            
-            
-        }.ignoresSafeArea()
-        
+            .coordinateSpace(name: "scroll")
+            .background{
+                Color("backgroundColor")
+            }
+            .overlay(alignment: .top) {
+                VStack {
+                    //Category Sheet 상단 네브바 역할
+                    HStack {
+                        Text("My Moment")
+                            .font(.system(size: sm.tnSheet == .low ? 20 : 24))
+                            .fontWeight(.bold)
+                        Spacer()
+                        if sm.tnSheet == .high {
+                            Button(action: {
+                                sm.isSheetShow = true
+                            }, label: {
+                                Image(systemName: "plus")
+                                    .font(.system(size: 20, weight: .regular))
+                                    .foregroundColor(.black)
+                                    .background{
+                                        Circle()
+                                            .frame(width: 40, height: 40)
+                                            .foregroundColor(.white)
+                                            .shadow(color: .black.opacity(0.12), radius: 26, x: 0, y: 0)
+                                    }
+                            })
+                            .padding(.trailing, 10)
+                        }
+                        
+                        
+                    }
+                    //TNSheet가 low에 있을 때 offset을 통해 위치를 조정해 준다
+                    .offset(y: sm.tnSheet == .low ? -20 : 0)
+                    //상단 Navbar의 위치를 반환해줄 Layer, Scroll영역과의 차이를 계산하기 위함
+                    .background(GeometryReader {
+                        Color.clear.preference(key: ViewOffsetKey.self,
+                            value: -$0.frame(in: .named("navbar")).origin.y)
+                    })
+                    // 스크롤 값 변화에 따른 연산
+                    .onPreferenceChange(ViewOffsetKey.self) {
+                        isNavbarOffset = $0
+                    }
+                    .padding(.top, 30)
+                    .padding(.horizontal, 21)
+                    .padding(.bottom, 4)
+                    }
+                    .coordinateSpace(name: "navbar")
+                    //TNSheet가 low에 있을 때 offset을 통해 크기를 조정해 준다
+                    .frame(height: sm.tnSheet == .low ? 50 : 110)
+                    .background{
+                        Color.white.frame(maxWidth: .infinity)
+                    Spacer()
+                }
+                
+                
+            }
+        }
         
     }
     
