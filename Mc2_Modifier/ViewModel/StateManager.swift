@@ -18,6 +18,8 @@ class StateManager: ObservableObject {
     
     @Published var isPinListShow: Bool
     
+    @Published var selectedPin: String?
+    
     
     
     init() {
