@@ -27,6 +27,8 @@
 		315291C028653B0F0078809B /* PinUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BF28653B0F0078809B /* PinUpdateView.swift */; };
 		315291C228653FEC0078809B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C128653FEC0078809B /* SheetView.swift */; };
 		315291C42865400A0078809B /* CategoryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C32865400A0078809B /* CategoryAddView.swift */; };
+		9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF84286721F5002511C1 /* SubViewsTree.swift */; };
+		9636AF87286725B5002511C1 /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF86286725B5002511C1 /* extension.swift */; };
 		31DF4665286A946E00663919 /* TitleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DF4664286A946E00663919 /* TitleImageView.swift */; };
 		31DF4667286A948300663919 /* RecordedMemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DF4666286A948300663919 /* RecordedMemoView.swift */; };
 		31DF4669286A948B00663919 /* ImageScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DF4668286A948B00663919 /* ImageScrollView.swift */; };
@@ -56,6 +58,8 @@
 		315291BF28653B0F0078809B /* PinUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinUpdateView.swift; sourceTree = "<group>"; };
 		315291C128653FEC0078809B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		315291C32865400A0078809B /* CategoryAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddView.swift; sourceTree = "<group>"; };
+		9636AF84286721F5002511C1 /* SubViewsTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewsTree.swift; sourceTree = "<group>"; };
+		9636AF86286725B5002511C1 /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		31DF4664286A946E00663919 /* TitleImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleImageView.swift; sourceTree = "<group>"; };
 		31DF4666286A948300663919 /* RecordedMemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordedMemoView.swift; sourceTree = "<group>"; };
 		31DF4668286A948B00663919 /* ImageScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScrollView.swift; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 				315291A62864531A0078809B /* View */,
 				3152918528644E3E0078809B /* Mc2_ModifierApp.swift */,
 				3152918728644E3E0078809B /* ContentView.swift */,
+				9636AF83286721E5002511C1 /* SubViews */,
+				9636AF88286725C3002511C1 /* Extension */,
 				3152918928644E3F0078809B /* Assets.xcassets */,
 				3152918E28644E3F0078809B /* Persistence.swift */,
 				3152919028644E3F0078809B /* Mc2_Modifier.xcdatamodeld */,
@@ -174,6 +180,20 @@
 			path = PinDetailView;
 			sourceTree = "<group>";
 		};
+		9636AF83286721E5002511C1 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				9636AF84286721F5002511C1 /* SubViewsTree.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		9636AF88286725C3002511C1 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9636AF86286725B5002511C1 /* extension.swift */,
+			);
+			path = Extension;
 		31DF4663286A944A00663919 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,6 +279,7 @@
 				3152918F28644E3F0078809B /* Persistence.swift in Sources */,
 				31DF466D286A949B00663919 /* SmallMapView.swift in Sources */,
 				315291B2286538940078809B /* MapView.swift in Sources */,
+				9636AF87286725B5002511C1 /* extension.swift in Sources */,
 				315291C42865400A0078809B /* CategoryAddView.swift in Sources */,
 				31DF466B286A949200663919 /* ImageDetailView.swift in Sources */,
 				3152919228644E3F0078809B /* Mc2_Modifier.xcdatamodeld in Sources */,
@@ -269,6 +290,7 @@
 				315291B6286538D00078809B /* CategoryListView.swift in Sources */,
 				312E209328693DE300D8D822 /* PinCardView.swift in Sources */,
 				315291C228653FEC0078809B /* SheetView.swift in Sources */,
+				9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */,
 				3152918828644E3E0078809B /* ContentView.swift in Sources */,
 				315291BE28653B050078809B /* PinAddView.swift in Sources */,
 				315291AA286453780078809B /* StateManager.swift in Sources */,
