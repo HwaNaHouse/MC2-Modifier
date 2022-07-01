@@ -10,6 +10,7 @@ import SwiftUI
 class StateManager: ObservableObject {
     
     @Published var isSheetShow: Bool
+    
     @Published var isFullScreenShow: Bool
     
     @Published var fullScreenType: fullType
@@ -18,6 +19,12 @@ class StateManager: ObservableObject {
     
     @Published var isPinListShow: Bool
     
+    @Published var hideAimPin: Bool
+    
+    @Published var emotionSelectingMode: Bool
+    
+    //category creating view 올리는 것은 어떻게 관리할까연
+    @Published var isCreateCategorySheetShow: Bool
     
     
     init() {
@@ -26,6 +33,9 @@ class StateManager: ObservableObject {
         self.fullScreenType = .pinDetailView
         self.tnSheet = .low
         self.isPinListShow = false
+        self.hideAimPin = false
+        self.emotionSelectingMode = false
+        self.isCreateCategorySheetShow = false
     }
 }
 
