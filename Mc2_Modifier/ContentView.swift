@@ -9,12 +9,9 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-
     var body: some View {
         MainView()
     }
-
-   
 }
 
 struct ContentView_Previews: PreviewProvider {

@@ -19,9 +19,9 @@ class StateManager: ObservableObject {
     
     @Published var isPinListShow: Bool
     
-    @Published var hideAimPin: Bool
+    @Published var hideAimPin: Bool // 가운데 찍는 핀 숨기는 변수
     
-    @Published var emotionSelectingMode: Bool
+    @Published var emotionSelectingMode: Bool // 이모션 찍는 모드
     
     //category creating view 올리는 것은 어떻게 관리할까연
     @Published var isCreateCategorySheetShow: Bool

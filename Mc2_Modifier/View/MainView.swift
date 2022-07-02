@@ -51,6 +51,9 @@ struct MainView: View {
         .fullScreenCover(isPresented: $sm.isFullScreenShow, content: {
             FullScreenSheet()
         })
+        
+        .modifier(LocationAlert(locationServiceEnabled: $mapVM.locationServiceAlert,
+                                locationWhenInUseEnabled: $mapVM.locationWhenInUseAlert))
     }
 }
 

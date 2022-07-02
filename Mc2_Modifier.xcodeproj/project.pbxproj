@@ -25,6 +25,7 @@
 		315291C028653B0F0078809B /* PinUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BF28653B0F0078809B /* PinUpdateView.swift */; };
 		315291C228653FEC0078809B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C128653FEC0078809B /* SheetView.swift */; };
 		315291C42865400A0078809B /* CategoryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C32865400A0078809B /* CategoryAddView.swift */; };
+		9623E0D62870584200085B56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9623E0D52870584200085B56 /* Settings.bundle */; };
 		9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF84286721F5002511C1 /* SubViewsTree.swift */; };
 		9636AF87286725B5002511C1 /* Extension+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF86286725B5002511C1 /* Extension+CGFloat.swift */; };
 		96C03586286BEE6A004D88A5 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C03585286BEE6A004D88A5 /* Extension+View.swift */; };
@@ -60,6 +61,7 @@
 		315291BF28653B0F0078809B /* PinUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinUpdateView.swift; sourceTree = "<group>"; };
 		315291C128653FEC0078809B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		315291C32865400A0078809B /* CategoryAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddView.swift; sourceTree = "<group>"; };
+		9623E0D52870584200085B56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9636AF84286721F5002511C1 /* SubViewsTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewsTree.swift; sourceTree = "<group>"; };
 		9636AF86286725B5002511C1 /* Extension+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CGFloat.swift"; sourceTree = "<group>"; };
 		96C03585286BEE6A004D88A5 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				3152918928644E3F0078809B /* Assets.xcassets */,
 				3152919028644E3F0078809B /* Moment.xcdatamodeld */,
 				3152918B28644E3F0078809B /* Preview Content */,
+				9623E0D52870584200085B56 /* Settings.bundle */,
 			);
 			path = Mc2_Modifier;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3152918D28644E3F0078809B /* Preview Assets.xcassets in Resources */,
+				9623E0D62870584200085B56 /* Settings.bundle in Resources */,
 				3152918A28644E3F0078809B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,9 +460,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mc2_Modifier/Preview Content\"";
-				DEVELOPMENT_TEAM = A44U4A2F2G;
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "원활한 앱 사용을 위해 위치 접근 권한을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -485,9 +490,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mc2_Modifier/Preview Content\"";
-				DEVELOPMENT_TEAM = A44U4A2F2G;
+				DEVELOPMENT_TEAM = B2RV52W8G3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "원활한 앱 사용을 위해 위치 접근 권한을 허용해주세요";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

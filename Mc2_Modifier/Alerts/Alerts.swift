@@ -19,6 +19,10 @@ struct LocationAlert: ViewModifier {
                 Button(role: .cancel) {} label: { Text("취소") }
                 Button {
                     //설정창으로 이동
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
                 } label: {
                     Text("설정")
                 }
@@ -29,6 +33,10 @@ struct LocationAlert: ViewModifier {
                 Button(role: .cancel) {} label: { Text("취소") }
                 Button {
                     //설정창으로 이동
+                    guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url)
+                    }
                 } label: {
                     Text("설정")
                 }

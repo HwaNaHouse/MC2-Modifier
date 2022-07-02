@@ -37,6 +37,20 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
             locationManager!.desiredAccuracy = kCLLocationAccuracyBest
         }
     }
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        checkLocationAuthorization()
+    }
+    
+    func startUpdatingLocation() {
+        guard let locationManager = locationManager else { return }
+        locationManager.startUpdatingLocation()
+    }
+    
+    func stopUpdatingLocation() {
+        guard let locationManager = locationManager else { return }
+        locationManager.stopUpdatingLocation()
+    }
 
     private func checkLocationAuthorization() {
         guard let locationManager = locationManager else { return }
@@ -44,7 +58,9 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         if locationManager.authorizationStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         } else if locationManager.authorizationStatus == .authorizedWhenInUse {
-            region = MKCoordinateRegion(center: locationManager.location!.coordinate, span: .defaultSpan)
+            guard let location = locationManager.location else { return }
+            region = MKCoordinateRegion(center: location.coordinate, span: .defaultSpan)
+            //1. locationManager가 처음 초기화될 때, 2. 위치 접근 권한이 안함 -> 사용으로 변경됐을 때 내 위치로 이동함.
         }
     }
     
@@ -58,9 +74,10 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         } else {
             if let locationManager = locationManager {
                 if locationManager.authorizationStatus == .authorizedWhenInUse { // 권한되어있으면
+                    guard let location = locationManager.location else { return }
                     withAnimation { // 유저위치로 이동
                         region = MKCoordinateRegion(
-                            center: locationManager.location!.coordinate,
+                            center: location.coordinate,
                             span: .defaultSpan
                         )
                     }

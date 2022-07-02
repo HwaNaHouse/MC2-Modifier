@@ -62,9 +62,16 @@ struct PlusButton: View {
             WhiteBackground(RoundedRectangle(cornerRadius: 10),
                             w: coreVM.categories.isEmpty ? .infinity : .ten*4.4, //category 0개면 쭉 늘어나도록.
                             h: .ten*4.4) {
-                Image(systemName: "plus")
-                    .font(.title2)
-                    .foregroundColor(.blue)
+                HStack {
+                    if coreVM.categories.isEmpty {
+                        Text("첫 번째 Moment 생성하기")
+                            .font(.title3)
+                            .fontWeight(.black)
+                    }
+                    Image(systemName: "plus")
+                        .font(.title2.bold())
+                }
+                .foregroundColor(Color("default"))
             }
         }
     }
@@ -81,6 +88,7 @@ struct MakingPinButton: View {
                 withAnimation {
                     sm.emotionSelectingMode.toggle()
                     //isRemove = false
+                    print(sm.emotionSelectingMode)
                 }
             } else {
                 //Category부터 추가하라는 Alert 내놔야지.
@@ -121,7 +129,7 @@ struct EmotionPicker: View {
         .background(
             Capsule()
                 .foregroundColor(.white)
-                .maxFrame(sm.emotionSelectingMode ? .infinity : 70, 70) //frame안맞는다면 기존 코드 참고.
+                .frame(minWidth: .ten*7, maxWidth: sm.emotionSelectingMode ? .infinity : .ten*7, minHeight: .ten*7, maxHeight: .ten*7)
                 .weakShadow()
         )
     }
@@ -161,6 +169,7 @@ struct LocationButton: View {
     var body: some View {
         Button {
             mapVM.userLocationButtonTapped()
+            print(mapVM.locationManager)
         } label: {
             SideButtonLabel(systemImage: "location.fill")
         }
@@ -171,7 +180,9 @@ struct MapModeButton: View {
     @EnvironmentObject var sm: StateManager
     var body: some View {
         Button {
-            sm.hideAimPin.toggle()
+            withAnimation {
+                sm.hideAimPin.toggle()
+            }
         } label: {
             SideButtonLabel(systemImage: sm.hideAimPin ? "map" : "map.fill")
         }

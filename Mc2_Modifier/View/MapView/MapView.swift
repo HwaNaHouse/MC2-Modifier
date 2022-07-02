@@ -9,14 +9,15 @@ import MapKit
 import SwiftUI
 
 struct MapView: View {
+    @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var sm: StateManager
     @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var coreVM: CoreDataViewModel
     
     var body: some View {
         Map(coordinateRegion: $mapVM.region,
-            interactionModes: .all, //[mapVM.canMove ? .all : .zoom]
-            showsUserLocation: true, //오류나면 이것도 핸들링 예정
+            interactionModes: .all,
+            showsUserLocation: true,
             annotationItems: coreVM.currentCategory?.pinArray ?? []) { pin in
             MapAnnotation(coordinate: CLLocationCoordinate2D(
                 latitude: pin.latitude,
@@ -31,6 +32,14 @@ struct MapView: View {
             }
             .onAppear {
                 mapVM.checkIfLocationServicesIsEnabled()
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    mapVM.checkLocationManger()
+                    mapVM.startUpdatingLocation()
+                } else if newPhase == .background {
+                    mapVM.stopUpdatingLocation()
+                }
             }
             .overlay(
                 aimPin()
