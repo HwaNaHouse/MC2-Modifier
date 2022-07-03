@@ -20,7 +20,7 @@ import SwiftUI
 //category menu picker label
 struct CategoryMenuBar: View {
     @EnvironmentObject var coreVM: CoreDataViewModel
-    @State var selection: Int?
+    @State private var selection: Int = 0
     
     var body: some View {
         Menu {
@@ -35,7 +35,7 @@ struct CategoryMenuBar: View {
             if !coreVM.categories.isEmpty { //category가 1개라도 있을 때만 나타남.
                 WhiteBackground(RoundedRectangle(cornerRadius: 10, style: .continuous), w: .infinity, h: .ten*4.4) {
                     HStack {
-                        Text(coreVM.currentCategory?.title ?? "") //categories가 1개라도 있는 이상 핸들링 실수없이는 currentCategory가 있음.
+                        Text(coreVM.selectedCategory?.title ?? "NoTitle") //categories가 1개라도 있는 이상 핸들링 실수없이는 currentCategory가 있음.
                             .font(.title3)
                             .fontWeight(.black)
                         Spacer()
@@ -43,9 +43,14 @@ struct CategoryMenuBar: View {
                             .font(.callout.bold())
                             .layoutPriority(1)
                     }
-                    .foregroundColor(.blue)
+                    .foregroundColor(Color("default"))
+                    .padding()
                 }
+                
             }
+        }
+        .onChange(of: selection) { newValue in
+            coreVM.selectedCategory = coreVM.categories[selection]
         }
     }
 }
@@ -57,7 +62,7 @@ struct PlusButton: View {
     
     var body: some View {
         Button {
-            sm.isCreateCategorySheetShow.toggle()
+            sm.isSheetShow.toggle()
         } label: {
             WhiteBackground(RoundedRectangle(cornerRadius: 10),
                             w: coreVM.categories.isEmpty ? .infinity : .ten*4.4, //category 0개면 쭉 늘어나도록.

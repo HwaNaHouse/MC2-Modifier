@@ -23,9 +23,6 @@ class StateManager: ObservableObject {
     
     @Published var emotionSelectingMode: Bool // 이모션 찍는 모드
     
-    //category creating view 올리는 것은 어떻게 관리할까연
-    @Published var isCreateCategorySheetShow: Bool
-    
     @Published var isShowCategoryAlert: Bool
     
     
@@ -37,7 +34,6 @@ class StateManager: ObservableObject {
         self.isPinListShow = false
         self.hideAimPin = false
         self.emotionSelectingMode = false
-        self.isCreateCategorySheetShow = false
         self.isShowCategoryAlert = false
     }
 }
