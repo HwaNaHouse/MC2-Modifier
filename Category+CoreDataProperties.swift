@@ -23,18 +23,6 @@ extension Category {
     @NSManaged public var uuid: UUID
     @NSManaged public var photo: Photo?
     @NSManaged public var pin: NSSet?
-    
-    public var pinArray: [Pin] {
-        let pinSet = pin as? Set<Pin> ?? []
-        return pinSet.sorted {
-            $0.createAt > $1.createAt
-        }
-    }
-    
-    public var convertedColor: Color {
-        return Color(categoryColor ?? "default")
-    }
-
 }
 
 // MARK: Generated accessors for photo

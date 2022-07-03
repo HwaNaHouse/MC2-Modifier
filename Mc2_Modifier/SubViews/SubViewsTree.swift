@@ -117,7 +117,6 @@ struct EmotionPicker: View {
     @EnvironmentObject var sm: StateManager
     @EnvironmentObject var coreVM: CoreDataViewModel
     
-    @State private var pinModel = PinModel()
     var emotions: [String] = ["smile", "love", "sad", "soso"] //추후 미리 지정한 이모티콘들로 관리할 예정.
     var offsetRatios: [CGFloat] = [-3.4, -2, 2, 3.4]
     
@@ -139,9 +138,10 @@ struct EmotionPicker: View {
     private func emotionButton(_ emotion: String, offset: CGFloat) -> some View {
         Button {
             withAnimation {
-                pinModel.emotion = emotion
+                coreVM.selectedCategory = coreVM.currentCategory
+                coreVM.pinEmotion = emotion
                 sm.emotionSelectingMode.toggle()
-                coreVM.addPin(pinModel, category: coreVM.currentCategory!) //edit 때는 addPin 함수에 지정된 category넘기면된다.
+                coreVM.addPin()
             }
         } label: {
             Image(emotion)
@@ -170,7 +170,8 @@ struct LocationButton: View {
     var body: some View {
         Button {
             mapVM.userLocationButtonTapped()
-            print(mapVM.locationManager)
+//            print(mapVM.locationManager)
+//            print(mapVM.locationManager?.location) //Good insight -> 위치서비스가 꺼지거나, 접근 권한이 거절되도 locationManager는 남아있으나 location은 nil이된다. 이를 이용하기.
         } label: {
             SideButtonLabel(systemImage: "location.fill")
         }
@@ -223,11 +224,11 @@ struct DefaultPin: View { //mapView & detailView will use...
     var body: some View {
         Circle()
             .fill(Color(pin.category.categoryColor!))
-            .frame(width: 30, height: 30)
+            .frame(width: .ten*3, height: .ten*3)
             .overlay(
                 Image(pin.emotion)
                     .resizable()
-                    .frame(width: 23, height: 23)
+                    .frame(width: .ten*2.3, height: .ten*2.3)
             )
             .padding()
     }
@@ -239,14 +240,14 @@ struct SelectedPin: View { //mapView will use...
     var body: some View {
         PinShape()
             .fill(Color(pin.category.categoryColor!))
-            .frame(width: 36, height: 45)
+            .frame(width: .ten*3.6, height: .ten*4.5)
             .overlay(
                 Image(pin.emotion)
                     .resizable()
-                    .frame(width: 28, height: 28)
+                    .frame(width: .ten*2.8, height: .ten*2.8)
                     .offset(y: -4)
             )
-            .offset(y: -22)
+            .offset(y: -.ten*2.2)
             .padding()
     }
 }
@@ -265,5 +266,27 @@ struct PinShape: Shape {
         path.addCurve(to: CGPoint(x: width, y: 0.40909*height), control1: CGPoint(x: 0.94732*width, y: 0.19654*height), control2: CGPoint(x: width, y: 0.30059*height))
         path.closeSubpath()
         return path
+    }
+}
+
+struct LoopingPinView: View {
+    @State private var isUp: Bool = false
+    
+    var body: some View {
+        Circle()
+            .fill(.black.opacity(isUp ? 0.2 : 0.3))
+            .blur(radius: 2)
+            .frame(width: isUp ? 15 : 25, height: isUp ? 15 : 25)
+            .overlay(
+                Image("purplePin")
+                    .resizable()
+                    .frame(width: 36, height: isUp ? 44 : 38)
+                    .offset(y: isUp ? -40 : -20)
+            )
+            .onAppear {
+                withAnimation(Animation.easeInOut(duration: 1).repeatForever()) {
+                    isUp.toggle()
+                }
+            }
     }
 }

@@ -78,12 +78,38 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
                     withAnimation { // 유저위치로 이동
                         region = MKCoordinateRegion(
                             center: location.coordinate,
-                            span: .defaultSpan
+                            span: .calculateSpan(region)
                         )
                     }
                 } else { // 권한 거절되어있으면
                     self.locationWhenInUseAlert.toggle() // alert (-> 설정창)
                 }
+            }
+        }
+    }
+    
+    func moveToPinLocation(_ pin: Pin) {
+        withAnimation {
+            region = .pinRegion(pin, region: region)
+        }
+    }
+    
+    //First pin's location in category
+    //Map's center will move to first pin's location when category selection changed.
+    func firstPinLocation(_ category: Category) {
+        guard let pinSet = category.pin as? Set<Pin> else { return }
+        let pinArray = pinSet.sorted { $0.createAt < $1.createAt }
+        
+        if !pinArray.isEmpty {
+            region = .pinRegion(pinArray.first ?? Pin(), region: region)
+        } else {
+            guard let locationManager = locationManager else { return }
+            guard let location = locationManager.location else { return } //위치서비스가 꺼져있으면 nil인 상태.
+            withAnimation {
+                region = MKCoordinateRegion(
+                    center: location.coordinate,
+                    span: .calculateSpan(region)
+                )
             }
         }
     }
@@ -96,4 +122,17 @@ extension CLLocationCoordinate2D {
 
 extension MKCoordinateSpan {
     static let defaultSpan = MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03)
+    
+    static func calculateSpan(_ region: MKCoordinateRegion) -> MKCoordinateSpan {
+        return region.span.longitudeDelta < MKCoordinateSpan.defaultSpan.longitudeDelta ? region.span : .defaultSpan
+    }
+}
+
+extension MKCoordinateRegion {
+    static func pinRegion(_ pin: Pin, region: MKCoordinateRegion) -> MKCoordinateRegion {
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude),
+            span: .calculateSpan(region)
+        )
+    }
 }

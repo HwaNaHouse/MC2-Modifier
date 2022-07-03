@@ -23,11 +23,12 @@
 		315291BA286538E80078809B /* PinDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291B9286538E80078809B /* PinDetailView.swift */; };
 		315291BE28653B050078809B /* PinAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BD28653B050078809B /* PinAddView.swift */; };
 		315291C028653B0F0078809B /* PinUpdateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291BF28653B0F0078809B /* PinUpdateView.swift */; };
-		315291C228653FEC0078809B /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C128653FEC0078809B /* SheetView.swift */; };
+		315291C228653FEC0078809B /* CategorySheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C128653FEC0078809B /* CategorySheetView.swift */; };
 		315291C42865400A0078809B /* CategoryAddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315291C32865400A0078809B /* CategoryAddView.swift */; };
 		9623E0D62870584200085B56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9623E0D52870584200085B56 /* Settings.bundle */; };
 		9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF84286721F5002511C1 /* SubViewsTree.swift */; };
 		9636AF87286725B5002511C1 /* Extension+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF86286725B5002511C1 /* Extension+CGFloat.swift */; };
+		96AC0A7028717A2F00885CC5 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AC0A6F28717A2F00885CC5 /* PinView.swift */; };
 		96C03586286BEE6A004D88A5 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C03585286BEE6A004D88A5 /* Extension+View.swift */; };
 		96FA7090286F08AE006EDE94 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA708F286F08AE006EDE94 /* Alerts.swift */; };
 		96FA7097286F1D8B006EDE94 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7096286F1D8B006EDE94 /* MapViewModel.swift */; };
@@ -59,11 +60,12 @@
 		315291B9286538E80078809B /* PinDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinDetailView.swift; sourceTree = "<group>"; };
 		315291BD28653B050078809B /* PinAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinAddView.swift; sourceTree = "<group>"; };
 		315291BF28653B0F0078809B /* PinUpdateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinUpdateView.swift; sourceTree = "<group>"; };
-		315291C128653FEC0078809B /* SheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		315291C128653FEC0078809B /* CategorySheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySheetView.swift; sourceTree = "<group>"; };
 		315291C32865400A0078809B /* CategoryAddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryAddView.swift; sourceTree = "<group>"; };
 		9623E0D52870584200085B56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9636AF84286721F5002511C1 /* SubViewsTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewsTree.swift; sourceTree = "<group>"; };
 		9636AF86286725B5002511C1 /* Extension+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CGFloat.swift"; sourceTree = "<group>"; };
+		96AC0A6F28717A2F00885CC5 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		96C03585286BEE6A004D88A5 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		96FA708F286F08AE006EDE94 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		96FA7096286F1D8B006EDE94 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
@@ -157,7 +159,7 @@
 				315291AD286538460078809B /* MapView */,
 				315291A72864534A0078809B /* MainView.swift */,
 				315291AB286455730078809B /* FullScreenSheet.swift */,
-				315291C128653FEC0078809B /* SheetView.swift */,
+				315291C128653FEC0078809B /* CategorySheetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -166,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				315291B1286538940078809B /* MapView.swift */,
+				96AC0A6F28717A2F00885CC5 /* PinView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -320,9 +323,10 @@
 				96FA7097286F1D8B006EDE94 /* MapViewModel.swift in Sources */,
 				96FA70A6286F3D82006EDE94 /* Pin+CoreDataProperties.swift in Sources */,
 				96FA70A7286F3D82006EDE94 /* Photo+CoreDataClass.swift in Sources */,
-				315291C228653FEC0078809B /* SheetView.swift in Sources */,
+				315291C228653FEC0078809B /* CategorySheetView.swift in Sources */,
 				96FA709B286F3C33006EDE94 /* CoreDataViewModel.swift in Sources */,
 				9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */,
+				96AC0A7028717A2F00885CC5 /* PinView.swift in Sources */,
 				3152918828644E3E0078809B /* ContentView.swift in Sources */,
 				315291BE28653B050078809B /* PinAddView.swift in Sources */,
 				315291AA286453780078809B /* StateManager.swift in Sources */,

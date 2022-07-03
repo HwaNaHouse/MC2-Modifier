@@ -18,11 +18,11 @@ struct MapView: View {
         Map(coordinateRegion: $mapVM.region,
             interactionModes: .all,
             showsUserLocation: true,
-            annotationItems: coreVM.currentCategory?.pinArray ?? []) { pin in
+            annotationItems: coreVM.pins) { pin in
             MapAnnotation(coordinate: CLLocationCoordinate2D(
                 latitude: pin.latitude,
                 longitude: pin.longitude)) {
-                    //PinView
+                    PinView(pin: pin)
                 }
         }
             .edgesIgnoringSafeArea(.all)
@@ -51,11 +51,11 @@ struct MapView: View {
         if !sm.hideAimPin {
             if sm.emotionSelectingMode {
                 Circle()
-                    .fill(coreVM.currentCategory?.convertedColor ?? .clear)
+                    .fill(Color(coreVM.currentCategory?.categoryColor ?? "default"))
                     .frame(width: .ten*3, height: .ten*3)
             } else {
                 if coreVM.selectedPin == Optional(nil) {
-                    //LoopingPinView()
+                    LoopingPinView()
                 }
             }
         }
