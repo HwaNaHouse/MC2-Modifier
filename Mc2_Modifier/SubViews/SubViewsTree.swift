@@ -91,7 +91,8 @@ struct MakingPinButton: View {
                     print(sm.emotionSelectingMode)
                 }
             } else {
-                //Category부터 추가하라는 Alert 내놔야지.
+                //Category부터 추가하라는 Alert.
+                sm.isShowCategoryAlert = true
             }
         } label: {
             if sm.emotionSelectingMode {

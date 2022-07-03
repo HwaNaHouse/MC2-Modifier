@@ -76,3 +76,20 @@ enum DataCase {
     case category
     case pin
 }
+
+struct CreateCategoryAlert: ViewModifier {
+    @Binding var isShowCategoryAlert: Bool
+    func body(content: Content) -> some View {
+        content
+            .alert("선택된 카테고리 없음", isPresented: $isShowCategoryAlert) {
+                Button(role: .cancel) {} label: { Text("취소") }
+                Button {
+                    //카테고리 생성 Sheet 띄우는 bool값 control
+                } label: {
+                    Text("카테고리 생성")
+                }
+            } message: {
+                Text("카테고리를 먼저 생성한 후 해당 카테고리에 핀을 남길 수가 있습니다")
+            }
+    }
+}

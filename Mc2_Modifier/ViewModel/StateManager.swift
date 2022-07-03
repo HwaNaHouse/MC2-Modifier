@@ -26,6 +26,8 @@ class StateManager: ObservableObject {
     //category creating view 올리는 것은 어떻게 관리할까연
     @Published var isCreateCategorySheetShow: Bool
     
+    @Published var isShowCategoryAlert: Bool
+    
     
     init() {
         self.isSheetShow = false
@@ -36,6 +38,7 @@ class StateManager: ObservableObject {
         self.hideAimPin = false
         self.emotionSelectingMode = false
         self.isCreateCategorySheetShow = false
+        self.isShowCategoryAlert = false
     }
 }
 

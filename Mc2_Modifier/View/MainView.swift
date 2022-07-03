@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct MainView: View {
-    @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var sm: StateManager
+    @EnvironmentObject var mapVM: MapViewModel
     
     var body: some View {
         ZStack {
@@ -54,6 +54,8 @@ struct MainView: View {
         
         .modifier(LocationAlert(locationServiceEnabled: $mapVM.locationServiceAlert,
                                 locationWhenInUseEnabled: $mapVM.locationWhenInUseAlert))
+        
+        .modifier(CreateCategoryAlert(isShowCategoryAlert: $sm.isShowCategoryAlert))
     }
 }
 
