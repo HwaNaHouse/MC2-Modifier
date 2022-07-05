@@ -34,9 +34,10 @@ struct MainView: View {
                             MakingPinButton() // third floor
                         }
                     }
-                    Spacer().frame(height: .screenH / 9.3) // 왜 넣었는지 기억안나서 시뮬돌릴때 한번 빼보자.
+                    Spacer().frame(height: .screenH / 9.3)
                 } // 2층
                 // PinPageView 들어갈 곳
+                PinPageView()
                 
                 // DelayView 들어갈 곳
                 

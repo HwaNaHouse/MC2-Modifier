@@ -191,15 +191,15 @@ struct CategoryAddView: View {
                     }
                     coreVM.resetCategory()
                 } label: {
-                    ZStack {
-                        RoundedRectangle(cornerRadius: 22)
-                            .frame(width:UIScreen.main.bounds.width - 48, height: 32)
-                        Text("작성완료")
-                            .foregroundColor(.white)
-                            .padding(10)
-                    }
-                    
-                        
+                    RoundedRectangle(cornerRadius: CGFloat.ten*2)
+                        .foregroundColor(Color("default"))
+                        .frame(height: .ten*4)
+                        .padding()
+                        .overlay(
+                            Text("작성완료")
+                                .foregroundColor(.white).bold()
+                                .padding(10)
+                        )
                 }
                 Spacer()
             }

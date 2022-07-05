@@ -49,6 +49,7 @@ struct CategoryMenuBar: View {
             }
         }
         .onChange(of: coreVM.currentCategory) { _ in
+            coreVM.currentMapPin = nil
             if coreVM.currentCategory != Optional(nil) {
                 mapVM.firstPinLocation(coreVM.currentCategory!)
             }
@@ -224,6 +225,23 @@ struct WhiteBackground<S: Shape, Content: View>: View {
     }
 }
 
+struct DefaultButton: View {
+    var text: String
+    var body: some View {
+        HStack {
+            Spacer()
+            Text(text)
+                .foregroundColor(.white).bold()
+            Spacer()
+        }
+        .padding(.vertical, 7)
+        .background(
+            RoundedRectangle(cornerRadius: 30, style: .continuous)
+                .fill(Color("default"))
+        )
+    }
+}
+
 
 //MARK: - PinView's subviews
 //2 types
@@ -231,13 +249,13 @@ struct DefaultPin: View { //mapView & detailView will use...
     var pin: Pin
     
     var body: some View {
-        Circle()
-            .fill(Color(pin.category.categoryColor!))
-            .frame(width: .ten*3, height: .ten*3)
-            .overlay(
-                Image(pin.emotion)
-                    .resizable()
-                    .frame(width: .ten*2.3, height: .ten*2.3)
+        Image(pin.emotion)
+            .resizable()
+            .frame(width: .ten*2.3, height: .ten*2.3)
+            .padding(3)
+            .background(
+                Circle()
+                    .fill(Color(pin.category.categoryColor!))
             )
             .padding()
     }
@@ -247,16 +265,16 @@ struct SelectedPin: View { //mapView will use...
     var pin: Pin
     
     var body: some View {
-        PinShape()
-            .fill(Color(pin.category.categoryColor!))
-            .frame(width: .ten*3.6, height: .ten*4.5)
-            .overlay(
-                Image(pin.emotion)
-                    .resizable()
-                    .frame(width: .ten*2.8, height: .ten*2.8)
-                    .offset(y: -4)
+        Image(pin.emotion)
+            .resizable()
+            .frame(width: .ten*2.8, height: .ten*2.8)
+            .offset(y: -.ten*0.45)
+            .background(
+                PinShape()
+                    .fill(Color(pin.category.categoryColor!))
+                    .frame(width: .ten*3.6, height: .ten*4.5)
             )
-            .offset(y: -.ten*2.2)
+            .offset(y: -.ten*2.25) //PinShape의 height만큼.
             .padding()
     }
 }
