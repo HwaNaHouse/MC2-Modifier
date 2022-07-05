@@ -68,8 +68,6 @@ struct CategoryAddView: View {
                     Image(systemName: "trash")
                         .foregroundColor(.black.opacity(0))
                 }
-                
-                
             }
             .padding()
             

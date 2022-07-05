@@ -23,16 +23,21 @@ struct MapView: View {
                 latitude: pin.latitude,
                 longitude: pin.longitude)) {
                     PinView(pin: pin)
+                        .environmentObject(coreVM) //MARK: TODO: KeyPoint...PinView가 annotation이라 그런 듯함.
                 }
         }
             .edgesIgnoringSafeArea(.all)
             .accentColor(.pink)
             .onTapGesture {
-                coreVM.selectedPin = nil
+                coreVM.currentMapPin = nil
             }
             .onAppear {
                 mapVM.checkIfLocationServicesIsEnabled()
+                setCurrentCategory() //MARK: Need to check
             }
+            .onChange(of: coreVM.pins, perform: { _ in
+                print(coreVM.pins)
+            })
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     mapVM.checkLocationManger()
@@ -46,6 +51,12 @@ struct MapView: View {
             )
     }
     
+    private func setCurrentCategory() {
+        if !coreVM.categories.isEmpty { //MARK: Need to check
+            coreVM.currentCategory = coreVM.categories[coreVM.currentCategoryIndex]
+        }
+    }
+    
     @ViewBuilder
     private func aimPin() -> some View {
         if !sm.hideAimPin {
@@ -54,7 +65,7 @@ struct MapView: View {
                     .fill(Color(coreVM.currentCategory?.categoryColor ?? "default"))
                     .frame(width: .ten*3, height: .ten*3)
             } else {
-                if coreVM.selectedPin == Optional(nil) {
+                if coreVM.currentMapPin == Optional(nil) {
                     LoopingPinView()
                 }
             }

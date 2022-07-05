@@ -19,23 +19,23 @@ import SwiftUI
 
 //category menu picker label
 struct CategoryMenuBar: View {
+    @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var coreVM: CoreDataViewModel
-    @State private var selection: Int = 0
     
     var body: some View {
         Menu {
-            Picker(selection: $selection) {
+            Picker(selection: $coreVM.currentCategory) {
                 if !coreVM.categories.isEmpty {
-                    ForEach(0..<coreVM.categories.count, id: \.self) { index in
-                        Text(coreVM.categories[index].title)
+                    ForEach(coreVM.categories, id: \.self) { category in
+                        Text(category.title).tag(category as Category?) //MARK: KeyPoint
                     }
                 }
             } label: {} //If only use Picker, cannot customize
         } label: {
-            if !coreVM.categories.isEmpty { //category가 1개라도 있을 때만 나타남.
+            if !coreVM.categories.isEmpty {
                 WhiteBackground(RoundedRectangle(cornerRadius: 10, style: .continuous), w: .infinity, h: .ten*4.4) {
                     HStack {
-                        Text(coreVM.selectedCategory?.title ?? "NoTitle") //categories가 1개라도 있는 이상 핸들링 실수없이는 currentCategory가 있음.
+                        Text(coreVM.currentCategory?.title ?? "No title") //categories가 1개라도 있는 이상 핸들링 실수없이는 currentCategory가 있음.
                             .font(.title3)
                             .fontWeight(.black)
                         Spacer()
@@ -46,11 +46,12 @@ struct CategoryMenuBar: View {
                     .foregroundColor(Color("default"))
                     .padding()
                 }
-                
             }
         }
-        .onChange(of: selection) { newValue in
-            coreVM.selectedCategory = coreVM.categories[selection]
+        .onChange(of: coreVM.currentCategory) { _ in
+            if coreVM.currentCategory != Optional(nil) {
+                mapVM.firstPinLocation(coreVM.currentCategory!)
+            }
         }
     }
 }
@@ -120,6 +121,7 @@ struct MakingPinButton: View {
 
 struct EmotionPicker: View {
     @EnvironmentObject var sm: StateManager
+    @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var coreVM: CoreDataViewModel
     
     var emotions: [String] = ["smile", "love", "sad", "soso"] //추후 미리 지정한 이모티콘들로 관리할 예정.
@@ -128,13 +130,13 @@ struct EmotionPicker: View {
     var body: some View {
         ZStack {
             ForEach(0...3, id: \.self) { index in //이렇게해야 버튼많아져도 줄 안길어진다.
-                emotionButton(emotions[index], offset: .screenW * offsetRatios[index])
+                emotionButton(emotions[index], offset: .screenW/10 * offsetRatios[index])
             }
         }
         .background(
             Capsule()
                 .foregroundColor(.white)
-                .frame(minWidth: .ten*7, maxWidth: sm.emotionSelectingMode ? .infinity : .ten*7, minHeight: .ten*7, maxHeight: .ten*7)
+                .frame(width: sm.emotionSelectingMode ? .screenW*0.9 : .ten*7, height: .ten*7)
                 .weakShadow()
         )
     }
@@ -143,10 +145,12 @@ struct EmotionPicker: View {
     private func emotionButton(_ emotion: String, offset: CGFloat) -> some View {
         Button {
             withAnimation {
-                coreVM.selectedCategory = coreVM.currentCategory
                 coreVM.pinEmotion = emotion
+                coreVM.pinLatitude = mapVM.region.center.latitude //MARK: Need to check
+                coreVM.pinLongitude = mapVM.region.center.longitude
                 sm.emotionSelectingMode.toggle()
                 coreVM.addPin()
+                coreVM.getMapPins() //MARK: Need to check
             }
         } label: {
             Image(emotion)

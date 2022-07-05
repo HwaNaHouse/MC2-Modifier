@@ -101,7 +101,9 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         let pinArray = pinSet.sorted { $0.createAt < $1.createAt }
         
         if !pinArray.isEmpty {
-            region = .pinRegion(pinArray.first ?? Pin(), region: region)
+            withAnimation {
+                region = .pinRegion(pinArray.first ?? Pin(), region: region)
+            }
         } else {
             guard let locationManager = locationManager else { return }
             guard let location = locationManager.location else { return } //위치서비스가 꺼져있으면 nil인 상태.

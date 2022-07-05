@@ -15,9 +15,18 @@ class CoreDataViewModel: ObservableObject {
     @Published var categories: [Category] = []
     @Published var pins: [Pin] = []
     
-    //Map의 상태를 handling하는 프로퍼티
-    @Published var currentCategory: Category?
+    //Map용.
+    @AppStorage("selection") var currentCategoryIndex: Int = 0 //앱 껐다 켰을 때 상태를 저장하기위한 index. mapView의 onAppear에서 사용호출.
     @Published var currentMapPin: Pin?
+    @Published var currentCategory: Category? { //1)새로 생성 시, 2)카테고리 변경 시 -> 값이 변경됨.
+        didSet { //앱 최초 및 초기 실행 & 카테고리 모두 삭제 시에만 nil.
+            //category가 모두 삭제됐을 때는 조건문 통과안되도록.
+            if let currentCategory = currentCategory {
+                self.currentCategoryIndex = categories.firstIndex(where: { currentCategory.uuid == $0.uuid }) ?? 0
+                getMapPins()
+            }
+        }
+    } //MARK: 1. pin과 관련된 핸들링이 진행되는 시점들에 getMapPins 호출하는 방법.
     
     //다양한 Add, Update, 열람용으로 사용되는 프로퍼티
     @Published var selectedCategory: Category?
@@ -37,6 +46,8 @@ class CoreDataViewModel: ObservableObject {
     @Published var pinTitle: String = ""
     @Published var pinEmotion: String = "love"
     @Published var pinContent: String = ""
+    @Published var pinLatitude: Double = 30.0 //MARK: Need to check
+    @Published var pinLongitude: Double = 120.0
     
     
     init() {
@@ -58,11 +69,25 @@ class CoreDataViewModel: ObservableObject {
         }
     }
     
+    func getMapPins() {
+        let request = Pin.fetchRequest()
+        let filter = NSPredicate(format: "category == %@", currentCategory!)
+        request.predicate = filter
+        request.sortDescriptors = [NSSortDescriptor(keyPath: \Pin.createAt, ascending: true)]
+        
+        do {
+            self.pins = try manager.viewContext.fetch(request)
+//            print("pins fetch")
+//            print(pins)
+        } catch let error {
+            print("Error fetching. \(error.localizedDescription)")
+        }
+    }
+    
     func getPins() {
         let request = Pin.fetchRequest()
         let filter = NSPredicate(format: "category == %@", selectedCategory!)
         request.predicate = filter
-        request.sortDescriptors = [NSSortDescriptor(keyPath: \Pin.createAt, ascending: true)]
         
         do {
             self.pins = try manager.viewContext.fetch(request)
@@ -82,6 +107,7 @@ class CoreDataViewModel: ObservableObject {
         } else {
             category = Category(context: manager.viewContext)
         }
+        category.uuid = UUID() //MARK: Need to check
         category.title = categoryTitle
         category.startDate = categoryStartDate
         category.photoName = categoryPhoto
@@ -91,6 +117,8 @@ class CoreDataViewModel: ObservableObject {
         getCategories()
         if !editCategoryMode {
             self.selectedCategory = category
+            //Map용
+            self.currentCategory = category
         }
         resetCategory()
     }
@@ -152,9 +180,12 @@ class CoreDataViewModel: ObservableObject {
         
         pin.placeName = pinTitle
         pin.emotion = pinEmotion
-        pin.category = selectedCategory!
+//        pin.category = selectedCategory! //MARK: Need to check
+        pin.category = currentCategory! //nil이 뜰 확률 no.
         pin.content = pinContent
         pin.createAt = Date()
+        pin.latitude = pinLatitude
+        pin.longitude = pinLongitude
         
         manager.saveContext()
         resetPin()
@@ -164,5 +195,7 @@ class CoreDataViewModel: ObservableObject {
         pinTitle = ""
         pinEmotion = "love"
         pinContent = ""
+        pinLatitude = 30
+        pinLongitude = 120
     }
 }

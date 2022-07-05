@@ -33,7 +33,6 @@
 		96FA7090286F08AE006EDE94 /* Alerts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA708F286F08AE006EDE94 /* Alerts.swift */; };
 		96FA7097286F1D8B006EDE94 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA7096286F1D8B006EDE94 /* MapViewModel.swift */; };
 		96FA709B286F3C33006EDE94 /* CoreDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA709A286F3C33006EDE94 /* CoreDataViewModel.swift */; };
-		96FA709E286F3C63006EDE94 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA709D286F3C63006EDE94 /* CategoryModel.swift */; };
 		96FA70A5286F3D82006EDE94 /* Pin+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA709F286F3D82006EDE94 /* Pin+CoreDataClass.swift */; };
 		96FA70A6286F3D82006EDE94 /* Pin+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA70A0286F3D82006EDE94 /* Pin+CoreDataProperties.swift */; };
 		96FA70A7286F3D82006EDE94 /* Photo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FA70A1286F3D82006EDE94 /* Photo+CoreDataClass.swift */; };
@@ -70,7 +69,6 @@
 		96FA708F286F08AE006EDE94 /* Alerts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alerts.swift; sourceTree = "<group>"; };
 		96FA7096286F1D8B006EDE94 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		96FA709A286F3C33006EDE94 /* CoreDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataViewModel.swift; sourceTree = "<group>"; };
-		96FA709D286F3C63006EDE94 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		96FA709F286F3D82006EDE94 /* Pin+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataClass.swift"; sourceTree = "<group>"; };
 		96FA70A0286F3D82006EDE94 /* Pin+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Pin+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		96FA70A1286F3D82006EDE94 /* Photo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 				3152918728644E3E0078809B /* ContentView.swift */,
 				315291A62864531A0078809B /* View */,
 				9636AF83286721E5002511C1 /* SubViews */,
-				96FA709C286F3C4D006EDE94 /* Model */,
 				315291A5286453150078809B /* ViewModel */,
 				96FA708E286F089D006EDE94 /* Alerts */,
 				9636AF88286725C3002511C1 /* Extension */,
@@ -226,15 +223,6 @@
 			path = Alerts;
 			sourceTree = "<group>";
 		};
-		96FA709C286F3C4D006EDE94 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				96FA709D286F3C63006EDE94 /* CategoryModel.swift */,
-			);
-			name = Model;
-			path = SubViews;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -313,7 +301,6 @@
 				3152919228644E3F0078809B /* Moment.xcdatamodeld in Sources */,
 				315291BA286538E80078809B /* PinDetailView.swift in Sources */,
 				96FA70A8286F3D82006EDE94 /* Photo+CoreDataProperties.swift in Sources */,
-				96FA709E286F3C63006EDE94 /* CategoryModel.swift in Sources */,
 				96FA7090286F08AE006EDE94 /* Alerts.swift in Sources */,
 				96FA70A9286F3D82006EDE94 /* Category+CoreDataClass.swift in Sources */,
 				315291B8286538E10078809B /* PinListView.swift in Sources */,

@@ -21,7 +21,7 @@ struct PinView: View {
             }
         } label: {
             //모든 pin들 공통사항
-            if pin == coreVM.currentMapPin {
+            if pin == coreVM.currentMapPin { //MARK: Need to check
                 SelectedPin(pin: pin)
             } else {
                 DefaultPin(pin: pin)
@@ -29,3 +29,6 @@ struct PinView: View {
         }
     }
 }
+
+//Pin 문제
+//LoopingPinView 문제
