@@ -35,9 +35,6 @@ struct MapView: View {
                 mapVM.checkIfLocationServicesIsEnabled()
                 setCurrentCategory() //MARK: Need to check
             }
-            .onChange(of: coreVM.pins, perform: { _ in
-                print(coreVM.pins)
-            })
             .onChange(of: scenePhase) { newPhase in
                 if newPhase == .active {
                     mapVM.checkLocationManger()

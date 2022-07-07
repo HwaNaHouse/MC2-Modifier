@@ -14,7 +14,7 @@ struct PinPageView: View {
     @EnvironmentObject var coreVM: CoreDataViewModel
     
     var body: some View {
-        if coreVM.currentMapPin != Optional(nil) && !coreVM.pins.isEmpty {
+        if coreVM.currentMapPin != Optional(nil) {
             VStack {
                 Spacer()
                 Pager(page: .withIndex(coreVM.pins.firstIndex(where: {$0 == coreVM.currentMapPin}) ?? 0),
@@ -40,6 +40,8 @@ struct PinPageView: View {
 
 struct PageView: View {
     @EnvironmentObject var coreVM: CoreDataViewModel
+    
+    @State private var deleteAlert: Bool = false
     var pin: Pin
     
     var body: some View {
@@ -53,11 +55,11 @@ struct PageView: View {
                     .lineLimit(1)
                 Spacer()
                 Button {
-                    coreVM.deletePin(pin)
-                    coreVM.getMapPins()
+                    deleteAlert.toggle()
                 } label: {
                     Image(systemName: "trash").layoutPriority(1)
                 }
+                .modifier(DeleteAlert(isShowDeleteAlert: $deleteAlert, deleteCase: .pin))
             }
             Spacer().frame(height: .ten)
             HStack {

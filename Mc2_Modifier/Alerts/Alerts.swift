@@ -48,6 +48,7 @@ struct LocationAlert: ViewModifier {
 
 //삭제 - case 1. 카테고리 delete. case 2. 핀 delete
 struct DeleteAlert: ViewModifier {
+    @EnvironmentObject var coreVM: CoreDataViewModel
     @Binding var isShowDeleteAlert: Bool
     var deleteCase: DataCase
     func body(content: Content) -> some View {
@@ -61,13 +62,20 @@ struct DeleteAlert: ViewModifier {
                         print()
                     case .pin:
                         // 해당 pin 삭제
-                        print()
+                        coreVM.deletePin(coreVM.currentMapPin ?? Pin()) //삭제
+                        coreVM.currentMapPin = nil
+                        coreVM.getMapPins()
                     }
                 } label: {
                     Text("삭제")
                 }
             } message: {
-                Text("저장한 모든 기록이 삭제됩니다.")
+                switch deleteCase {
+                case .category:
+                    Text("카테고리에 저장한 모든 기록이 삭제됩니다.")
+                case .pin:
+                    Text("핀에 저장한 모든 기록이 삭제됩니다.")
+                }
             }
     }
 }
