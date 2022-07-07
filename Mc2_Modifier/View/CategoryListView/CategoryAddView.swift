@@ -12,6 +12,7 @@ struct CategoryAddView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var coreVM: CoreDataViewModel
 
+    @State var isShowTitleEmptyAlert: Bool = false
     @State var categoryTitle: String = ""
     
     @State var color = "red"
@@ -100,19 +101,21 @@ struct CategoryAddView: View {
             
             VStack(alignment:.leading) {
                 Text("카테고리 이름")
-                    .font(.system(size: 16))
-                    .fontWeight(.regular)
+                    .font(Font.system(size: 16, design: .rounded))
                     .padding(.bottom, 10)
-                TextField("나의 첫번째 여행", text: $coreVM.categoryTitle)
-                    .font(Font.system(size: 14, design: .rounded).bold())
-                    .overlay {
-                        HStack{
-                            Spacer()
-                            Text("0/15")
-                                .font(Font.system(size: 14, design: .rounded))
-                                .foregroundColor(.black.opacity(0.2))
+                HStack {
+                    TextField("나의 \(coreVM.categories.count+1)번째 여행", text: $coreVM.categoryTitle)
+                        .font(Font.system(size: 16, design: .rounded).bold())
+                        .modifier(ClearButton(text: $coreVM.categoryTitle))
+                    Spacer()
+                    Text("\(coreVM.categoryTitle.count)/15")
+                        .font(Font.system(size: 16, design: .rounded))
+                        .foregroundColor(.black.opacity(0.2))
+                        .onChange(of: coreVM.categoryTitle) { _ in
+                            coreVM.categoryTitle = String(coreVM.categoryTitle.prefix(15))
                         }
-                    }
+                        .frame(width: 50)
+                }
                 Divider()
             }
             .padding(.horizontal)
@@ -183,13 +186,17 @@ struct CategoryAddView: View {
             
             HStack {
                 Spacer()
-                Button{
-                    coreVM.addCategory()
-                    presentationMode.wrappedValue.dismiss()
-                    if coreVM.editCategoryMode {
-                        coreVM.editCategoryMode = false
+                Button {
+                    if coreVM.categoryTitle.isEmpty { //for Alert
+                        isShowTitleEmptyAlert.toggle()
+                    } else {
+                        coreVM.addCategory()
+                        presentationMode.wrappedValue.dismiss()
+                        if coreVM.editCategoryMode {
+                            coreVM.editCategoryMode = false
+                        }
+                        coreVM.resetCategory()
                     }
-                    coreVM.resetCategory()
                 } label: {
                     RoundedRectangle(cornerRadius: CGFloat.ten*2)
                         .foregroundColor(Color("default"))
@@ -205,8 +212,6 @@ struct CategoryAddView: View {
             }
             .padding(.horizontal)
             .padding(.vertical)
-            
-            
         }
         .overlay {
             ZStack {
@@ -228,11 +233,41 @@ struct CategoryAddView: View {
             }
             .animation(.easeInOut, value: showToggle)
         }
+        .alert("카테고리 이름", isPresented: $isShowTitleEmptyAlert, actions: {}, message: {
+            Text("카테고리 이름은 최소 한 글자 이상이어야 합니다.")
+        })
+        .onDisappear {
+            coreVM.resetCategory()
+        }
     }
 }
 
 struct CategoryAddView_Previews: PreviewProvider {
     static var previews: some View {
         CategoryAddView()
+    }
+}
+
+struct ClearButton: ViewModifier {
+    
+    @Binding var text: String
+    
+    func body(content: Content) -> some View {
+        HStack(alignment: .center) {
+            
+            content
+                .disableAutocorrection(true) //MARK: 자동완성 없애주는 친구.
+                .autocapitalization(.none) //MARK: 첫 글자 대문자 안나오게.
+            
+            if !text.isEmpty {
+                Button {
+                    self.text = ""
+                } label: {
+                    Image(systemName: "multiply.circle.fill")
+                        .foregroundColor(Color(UIColor.opaqueSeparator))
+                }
+                .padding(.trailing, 10)
+            }
+        }
     }
 }

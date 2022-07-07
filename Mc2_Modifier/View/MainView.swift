@@ -59,7 +59,7 @@ struct MainView: View {
             .modifier(LocationAlert(locationServiceEnabled: $mapVM.locationServiceAlert,
                                     locationWhenInUseEnabled: $mapVM.locationWhenInUseAlert))
         
-            .modifier(CreateCategoryAlert(isShowCategoryAlert: $sm.isShowCategoryAlert))
+            .modifier(CreateCategoryAlert())
     }
 }
 

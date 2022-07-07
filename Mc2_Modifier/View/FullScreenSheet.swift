@@ -18,7 +18,7 @@ struct FullScreenSheet: View {
             switch sm.fullScreenType {
             case .pinDetailView:
                 PinDetailView()
-            case .PinAddView3:
+            case .pinAddView3:
                 PinAddView()
             case .pinUpdate:
                 PinUpdateView()

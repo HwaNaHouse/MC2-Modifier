@@ -78,13 +78,15 @@ enum DataCase {
 }
 
 struct CreateCategoryAlert: ViewModifier {
-    @Binding var isShowCategoryAlert: Bool
+    @EnvironmentObject var sm: StateManager
+    
     func body(content: Content) -> some View {
         content
-            .alert("선택된 카테고리 없음", isPresented: $isShowCategoryAlert) {
+            .alert("선택된 카테고리 없음", isPresented: $sm.isShowCategoryAlert) {
                 Button(role: .cancel) {} label: { Text("취소") }
                 Button {
                     //카테고리 생성 Sheet 띄우는 bool값 control
+                    sm.isSheetShow = true
                 } label: {
                     Text("카테고리 생성")
                 }

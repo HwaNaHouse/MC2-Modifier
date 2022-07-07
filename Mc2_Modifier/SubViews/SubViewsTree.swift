@@ -244,7 +244,7 @@ struct DefaultButton: View {
 
 
 //MARK: - PinView's subviews
-//2 types
+//3 types
 struct DefaultPin: View { //mapView & detailView will use...
     var pin: Pin
     
@@ -254,10 +254,21 @@ struct DefaultPin: View { //mapView & detailView will use...
             .frame(width: .ten*2.3, height: .ten*2.3)
             .padding(3)
             .background(
-                Circle()
-                    .fill(Color(pin.category.categoryColor!))
+                backCircle()
             )
-            .padding()
+    }
+    
+    @ViewBuilder
+    private func backCircle() -> some View {
+        if pin.content?.isEmpty ?? true { //미완료 핀
+            Circle()
+                .stroke(Color(pin.category.categoryColor!),
+                        style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
+                .padding(3)
+        } else { //작성완료 핀
+            Circle()
+                .fill(Color(pin.category.categoryColor!))
+        }
     }
 }
 
@@ -275,7 +286,6 @@ struct SelectedPin: View { //mapView will use...
                     .frame(width: .ten*3.6, height: .ten*4.5)
             )
             .offset(y: -.ten*2.25) //PinShape의 height만큼.
-            .padding()
     }
 }
 

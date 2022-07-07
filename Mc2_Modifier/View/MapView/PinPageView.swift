@@ -28,9 +28,9 @@ struct PinPageView: View {
                       .horizontal()
                       .alignment(.center)
                       .itemSpacing(.ten*2)
-                      .preferredItemSize(CGSize(width: CGFloat.screenW*0.76, height: .screenW*0.41)) //Item Size
-                      .frame(height: .screenW*0.5) //Pager frame size
-                Spacer().frame(height: .screenH/8.7) //TNSheet 보다 높게
+                      .preferredItemSize(CGSize(width: CGFloat.screenW*0.76, height: .screenW*0.4)) //Item Size
+                      .frame(height: .screenW*0.44) //Pager frame size
+                Spacer().frame(height: .screenH/8.0) //TNSheet 보다 높게
             }
             .ignoresSafeArea()
         }
@@ -43,13 +43,16 @@ struct PageView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Spacer()
+            Spacer().frame(height: .ten*2)
             HStack {
                 Text(pin.placeName?.isEmpty ?? true ? "Title Please" : pin.placeName!)
+                    .font(.title2.bold())
+                    .foregroundColor(pin.placeName?.isEmpty ?? true ? .secondary : .black)
+                    .lineLimit(1)
                 Spacer()
-                DefaultPin(pin: pin)
+                DefaultPin(pin: pin).layoutPriority(1)
             }
-            Spacer()
+            Spacer().frame(height: .ten)
             HStack {
                 Circle()
                     .foregroundColor(Color("default"))
@@ -65,8 +68,9 @@ struct PageView: View {
             }
             Spacer()
             DefaultButton(text: pin.content?.isEmpty ?? true ? "핀 완성하기" : "핀 확인하기")
+            Spacer().frame(height: .ten*1.5)
         }
-        .padding()
+        .padding(.horizontal, .ten*2)
         .background(.white)
         .cornerRadius(20)
         .weakShadow()

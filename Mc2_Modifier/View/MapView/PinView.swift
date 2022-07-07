@@ -22,9 +22,9 @@ struct PinView: View {
         } label: {
             //모든 pin들 공통사항
             if pin == coreVM.currentMapPin { //MARK: Need to check
-                SelectedPin(pin: pin)
+                SelectedPin(pin: pin).padding(10)
             } else {
-                DefaultPin(pin: pin)
+                DefaultPin(pin: pin).padding(10)
             }
         }
     }

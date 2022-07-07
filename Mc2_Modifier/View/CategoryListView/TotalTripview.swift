@@ -100,7 +100,7 @@ struct TotalTripview: View {
         }
     }
 
-    private func nearCase(_ move: CGFloat, speed: CGFloat) -> tnSheetType {
+    private func nearCase(_ move: CGFloat, speed: CGFloat) -> TnSheetType {
         let low = UIScreen.main.bounds.height - low
         let high = UIScreen.main.bounds.height - high
         

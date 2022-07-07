@@ -13,9 +13,9 @@ class StateManager: ObservableObject {
     
     @Published var isFullScreenShow: Bool
     
-    @Published var fullScreenType: fullType
+    @Published var fullScreenType: FullType
     
-    @Published var tnSheet: tnSheetType
+    @Published var tnSheet: TnSheetType
     
     @Published var isPinListShow: Bool
     
@@ -38,11 +38,11 @@ class StateManager: ObservableObject {
     }
 }
 
-enum fullType {
-    case pinDetailView, pinAddView1, pinAddView2, PinAddView3, pinUpdate
+enum FullType {
+    case pinDetailView, pinAddView1, pinAddView2, pinAddView3, pinUpdate
 }
 
-enum tnSheetType {
+enum TnSheetType {
     case low, high
 }
 
