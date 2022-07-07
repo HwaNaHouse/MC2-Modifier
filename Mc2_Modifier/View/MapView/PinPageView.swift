@@ -43,6 +43,9 @@ struct PageView: View {
     
     @State private var deleteAlert: Bool = false
     var pin: Pin
+    var pinIndex: Int {
+        coreVM.pins.firstIndex(of: pin) ?? 0
+    }
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -62,16 +65,16 @@ struct PageView: View {
                 .modifier(DeleteAlert(isShowDeleteAlert: $deleteAlert, deleteCase: .pin))
             }
             Spacer().frame(height: .ten)
-            HStack {
+            HStack(spacing: 2) {
                 Circle()
                     .foregroundColor(Color("default"))
                     .frame(width: .ten*1.8, height: .ten*1.8)
                     .overlay(
-                        Text("4")
+                        Text("\(pinIndex+1)")
                             .font(.caption2.bold())
                             .foregroundColor(.white)
                     )
-                Text("포항 여행")
+                Text("번째 핀")
                     .font(.headline)
                     .foregroundColor(Color("default"))
             }
