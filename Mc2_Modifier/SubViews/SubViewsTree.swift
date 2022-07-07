@@ -262,12 +262,12 @@ struct DefaultPin: View { //mapView & detailView will use...
     private func backCircle() -> some View {
         if pin.content?.isEmpty ?? true { //미완료 핀
             Circle()
-                .stroke(Color(pin.category.categoryColor!),
+                .stroke(Color(pin.category.categoryColor ?? "default"),
                         style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
                 .padding(3)
         } else { //작성완료 핀
             Circle()
-                .fill(Color(pin.category.categoryColor!))
+                .fill(Color(pin.category.categoryColor ?? "default"))
         }
     }
 }

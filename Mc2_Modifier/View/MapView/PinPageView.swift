@@ -14,7 +14,7 @@ struct PinPageView: View {
     @EnvironmentObject var coreVM: CoreDataViewModel
     
     var body: some View {
-        if coreVM.currentMapPin != Optional(nil) {
+        if coreVM.currentMapPin != Optional(nil) && !coreVM.pins.isEmpty {
             VStack {
                 Spacer()
                 Pager(page: .withIndex(coreVM.pins.firstIndex(where: {$0 == coreVM.currentMapPin}) ?? 0),
@@ -39,18 +39,25 @@ struct PinPageView: View {
 
 
 struct PageView: View {
+    @EnvironmentObject var coreVM: CoreDataViewModel
     var pin: Pin
     
     var body: some View {
         VStack(alignment: .leading) {
             Spacer().frame(height: .ten*2)
             HStack {
+                DefaultPin(pin: pin).layoutPriority(1)
                 Text(pin.placeName?.isEmpty ?? true ? "Title Please" : pin.placeName!)
                     .font(.title2.bold())
                     .foregroundColor(pin.placeName?.isEmpty ?? true ? .secondary : .black)
                     .lineLimit(1)
                 Spacer()
-                DefaultPin(pin: pin).layoutPriority(1)
+                Button {
+                    coreVM.deletePin(pin)
+                    coreVM.getMapPins()
+                } label: {
+                    Image(systemName: "trash").layoutPriority(1)
+                }
             }
             Spacer().frame(height: .ten)
             HStack {

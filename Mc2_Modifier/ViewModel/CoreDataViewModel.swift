@@ -159,6 +159,7 @@ class CoreDataViewModel: ObservableObject {
     func deletePin(_ pin: Pin) {
         withAnimation {
             manager.viewContext.delete(pin)
+            manager.saveContext()
         }
     }
     
