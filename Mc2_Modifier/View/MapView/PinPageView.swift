@@ -60,7 +60,9 @@ struct PageView: View {
                 Button {
                     deleteAlert.toggle()
                 } label: {
-                    Image(systemName: "trash").layoutPriority(1)
+                    Image(systemName: "trash")
+                        .foregroundColor(.secondary)
+                        .layoutPriority(1)
                 }
                 .modifier(DeleteAlert(isShowDeleteAlert: $deleteAlert, deleteCase: .pin))
             }

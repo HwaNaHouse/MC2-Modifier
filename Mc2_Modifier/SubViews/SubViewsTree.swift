@@ -262,9 +262,10 @@ struct DefaultPin: View { //mapView & detailView will use...
     private func backCircle() -> some View {
         if pin.content?.isEmpty ?? true { //미완료 핀
             Circle()
-                .stroke(Color(pin.category.categoryColor ?? "default"),
-                        style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
-                .padding(3)
+//                .stroke(Color(pin.category.categoryColor ?? "default"),
+//                        style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
+//                .padding(3)
+                .fill(Color("gray"))
         } else { //작성완료 핀
             Circle()
                 .fill(Color(pin.category.categoryColor ?? "default"))
@@ -282,7 +283,7 @@ struct SelectedPin: View { //mapView will use...
             .offset(y: -.ten*0.45)
             .background(
                 PinShape()
-                    .fill(Color(pin.category.categoryColor!))
+                    .fill(Color(pin.content?.isEmpty ?? true ? "gray" : pin.category.categoryColor!))
                     .frame(width: .ten*3.6, height: .ten*4.5)
             )
             .offset(y: -.ten*2.25) //PinShape의 height만큼.
