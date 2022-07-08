@@ -170,6 +170,8 @@ class CoreDataViewModel: ObservableObject {
             pinCreateAt = pin.createAt
             pinEmotion = pin.emotion
             pinContent = pin.content ?? ""
+            pinLatitude = pin.latitude
+            pinLongitude = pin.longitude
         }
     }
     

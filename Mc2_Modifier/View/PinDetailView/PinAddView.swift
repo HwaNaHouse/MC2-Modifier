@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CoreLocation
+import MapKit
 
 struct PinAddView: View {
     @EnvironmentObject var sm: StateManager
@@ -14,7 +15,10 @@ struct PinAddView: View {
     
     @State private var addressName: String = ""
     @State private var showCalendar: Bool = false
+    @State private var isShowEditMap: Bool = false
+    
     @State private var isShowTitleEmptyAlert: Bool = false
+    @State private var cancelEditModeAlert: Bool = false
     
     var emotions: [String] = ["smile", "love", "sad", "soso"]
     
@@ -74,8 +78,9 @@ struct PinAddView: View {
                         }
                         
                         EditSectionView(title: "핀의 위치") {
-                            NavigationLink {
+                            Button {
                                 // 새로운 위치조절용 지도뷰
+                                isShowEditMap.toggle()
                             } label: {
                                 HStack(spacing: .ten*1.5) {
                                     Text(addressName).foregroundColor(.black)
@@ -85,6 +90,9 @@ struct PinAddView: View {
                                         .foregroundColor(.red)
                                         .frame(width: .ten*2, height: .ten*2)
                                 }
+                            }
+                            .fullScreenCover(isPresented: $isShowEditMap) {
+                                EditMapView(latitude: coreVM.pinLatitude, longitude: coreVM.pinLongitude)
                             }
                         }
                         
@@ -102,14 +110,7 @@ struct PinAddView: View {
                     
                     HStack {
                         Button {
-                            sm.isFullScreenShow = false
-                            //취소 로직
-                            DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { //sheet내려가는동안 순간적으로 초기화되는 모습 보이는 것이 눈에 밟혀서.
-                                coreVM.selectedPin = nil
-                                coreVM.resetPin()
-                                coreVM.editPinMode = false
-                                coreVM.selectedCategory = nil
-                            }
+                            cancelEditModeAlert.toggle()
                         } label: {
                             Text("취소하기")
                         }
@@ -136,7 +137,7 @@ struct PinAddView: View {
                 .onAppear {
                     locate()
                 }
-                .onChange(of: coreVM.selectedPin) { _ in
+                .onChange(of: coreVM.pinLatitude) { _ in
                     locate()
                 }
                 if showCalendar {
@@ -158,13 +159,31 @@ struct PinAddView: View {
             .alert("핀 제목", isPresented: $isShowTitleEmptyAlert, actions: {}, message: {
                 Text("핀 제목은 최소 한 글자 이상이어야 합니다.")
             })
+            .alert("작성 취소", isPresented: $cancelEditModeAlert) {
+                Button(role: .destructive) {
+                    sm.isFullScreenShow = false
+                    //취소 로직
+                    DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { //sheet내려가는동안 순간적으로 초기화되는 모습 보이는 것이 눈에 밟혀서.
+                        coreVM.selectedPin = nil
+                        coreVM.resetPin()
+                        coreVM.editPinMode = false
+                        coreVM.selectedCategory = nil
+                    }
+                } label: {
+                    Text("작성 취소")
+                }
+                Button(role: .cancel) {} label: { Text("이어하기") }
+            } message: {
+                Text("작성하던 기록들이 모두 취소됩니다.")
+            }
+
         }
         .ignoresSafeArea(.keyboard)
     }
     
     // 해당 위치의 주소값을 가져오는 함수.
     private func locate() {
-        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: coreVM.selectedPin?.latitude ?? 30, longitude: coreVM.selectedPin?.longitude ?? 120), preferredLocale: Locale(identifier: "Ko_kr"), completionHandler: {(placemarks, error) in
+        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: coreVM.pinLatitude, longitude: coreVM.pinLongitude), preferredLocale: Locale(identifier: "Ko_kr"), completionHandler: {(placemarks, error) in
             addressName = ""
             if let address: [CLPlacemark] = placemarks {
                 if let admin: String = address.last?.administrativeArea {
@@ -199,7 +218,7 @@ struct PinAddView: View {
                 .frame(width: .ten*2.8, height: .ten*2.8)
                 .padding(3)
                 .background(
-                    Circle()
+                    Circle() //Need to check - 카테고리 컬러, 카테고리 선택 관련은 selectedPin에서 변경되고, 그 외는 프로퍼티에 반영됨.
                         .fill(Color(coreVM.selectedPin?.category.categoryColor ?? "default"))
                 )
                 .opacity(
