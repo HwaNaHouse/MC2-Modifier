@@ -14,20 +14,19 @@ struct FullScreenSheet: View {
     var body: some View {
         
         VStack {
-        
             switch sm.fullScreenType {
             case .pinDetailView:
                 PinDetailView()
+            case .pinAddView1:
+                PinAddView()
+            case .pinAddView2:
+//                PinAddView()
+                Text("Hello Step2 View")
             case .pinAddView3:
                 PinAddView()
             case .pinUpdate:
                 PinUpdateView()
-            case .pinAddView1:
-                PinAddView()
-            case .pinAddView2:
-                PinAddView()
             }
-        
         }
         
     }

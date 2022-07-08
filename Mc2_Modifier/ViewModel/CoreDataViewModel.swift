@@ -45,6 +45,7 @@ class CoreDataViewModel: ObservableObject {
     @Published var editPinMode = false
     @Published var pinTitle: String = ""
     @Published var pinEmotion: String = "love"
+    @Published var pinCreateAt: Date = Date() //Need to check
     @Published var pinContent: String = ""
     @Published var pinLatitude: Double = 30.0 //MARK: Need to check
     @Published var pinLongitude: Double = 120.0
@@ -166,6 +167,7 @@ class CoreDataViewModel: ObservableObject {
     func setPin() {
         if let pin = selectedPin {
             pinTitle = pin.placeName ?? ""
+            pinCreateAt = pin.createAt
             pinEmotion = pin.emotion
             pinContent = pin.content ?? ""
         }
@@ -181,12 +183,16 @@ class CoreDataViewModel: ObservableObject {
         
         pin.placeName = pinTitle
         pin.emotion = pinEmotion
-//        pin.category = selectedCategory! //MARK: Need to check
-        pin.category = currentCategory! //nil이 뜰 확률 no.
         pin.content = pinContent
-        pin.createAt = Date()
+        pin.createAt = pinCreateAt
         pin.latitude = pinLatitude
         pin.longitude = pinLongitude
+        
+        if editPinMode {
+            pin.category = selectedCategory! //MARK: Need to check
+        } else {
+            pin.category = currentCategory! //nil이 뜰 확률 no.
+        }
         
         manager.saveContext()
         resetPin()
@@ -198,5 +204,6 @@ class CoreDataViewModel: ObservableObject {
         pinContent = ""
         pinLatitude = 30
         pinLongitude = 120
+        pinCreateAt = Date()
     }
 }

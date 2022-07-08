@@ -163,7 +163,7 @@ struct CategoryAddView: View {
                     Spacer()
                 }
                 HStack {
-                    Text("\(coreVM.categoryStartDate, formatter: dateFormatter)")
+                    Text(coreVM.categoryStartDate.convertToString(style: "yyyy년 MM월 dd일"))
                         .font(.callout)
                         .fontWeight(.regular)
                         .padding(.top, 10)

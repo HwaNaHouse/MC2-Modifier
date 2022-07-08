@@ -28,6 +28,8 @@
 		9623E0D62870584200085B56 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 9623E0D52870584200085B56 /* Settings.bundle */; };
 		9636AF85286721F5002511C1 /* SubViewsTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF84286721F5002511C1 /* SubViewsTree.swift */; };
 		9636AF87286725B5002511C1 /* Extension+CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9636AF86286725B5002511C1 /* Extension+CGFloat.swift */; };
+		96A252BE28785C81006D4126 /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A252BD28785C81006D4126 /* Extension+Date.swift */; };
+		96A252C02878807A006D4126 /* EditMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A252BF2878807A006D4126 /* EditMapView.swift */; };
 		96AC0A7028717A2F00885CC5 /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AC0A6F28717A2F00885CC5 /* PinView.swift */; };
 		96C03586286BEE6A004D88A5 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96C03585286BEE6A004D88A5 /* Extension+View.swift */; };
 		96D1A583287450920080C215 /* PinPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96D1A582287450920080C215 /* PinPageView.swift */; };
@@ -66,6 +68,8 @@
 		9623E0D52870584200085B56 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		9636AF84286721F5002511C1 /* SubViewsTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubViewsTree.swift; sourceTree = "<group>"; };
 		9636AF86286725B5002511C1 /* Extension+CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CGFloat.swift"; sourceTree = "<group>"; };
+		96A252BD28785C81006D4126 /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
+		96A252BF2878807A006D4126 /* EditMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMapView.swift; sourceTree = "<group>"; };
 		96AC0A6F28717A2F00885CC5 /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
 		96C03585286BEE6A004D88A5 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		96D1A582287450920080C215 /* PinPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinPageView.swift; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				315291B9286538E80078809B /* PinDetailView.swift */,
 				315291BD28653B050078809B /* PinAddView.swift */,
 				315291BF28653B0F0078809B /* PinUpdateView.swift */,
+				96A252BF2878807A006D4126 /* EditMapView.swift */,
 			);
 			path = PinDetailView;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 			children = (
 				9636AF86286725B5002511C1 /* Extension+CGFloat.swift */,
 				96C03585286BEE6A004D88A5 /* Extension+View.swift */,
+				96A252BD28785C81006D4126 /* Extension+Date.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -313,8 +319,10 @@
 				315291BA286538E80078809B /* PinDetailView.swift in Sources */,
 				96FA70A8286F3D82006EDE94 /* Photo+CoreDataProperties.swift in Sources */,
 				96FA7090286F08AE006EDE94 /* Alerts.swift in Sources */,
+				96A252BE28785C81006D4126 /* Extension+Date.swift in Sources */,
 				96FA70A9286F3D82006EDE94 /* Category+CoreDataClass.swift in Sources */,
 				315291B8286538E10078809B /* PinListView.swift in Sources */,
+				96A252C02878807A006D4126 /* EditMapView.swift in Sources */,
 				315291B4286538B70078809B /* TotalTripview.swift in Sources */,
 				96C03586286BEE6A004D88A5 /* Extension+View.swift in Sources */,
 				315291B6286538D00078809B /* CategoryListView.swift in Sources */,

@@ -40,7 +40,6 @@ struct MainView: View {
                 PinPageView()
                 
                 // DelayView 들어갈 곳
-                
                 TotalTripview() // 3층
             }
         }
@@ -56,10 +55,9 @@ struct MainView: View {
                 FullScreenSheet()
             })
         
+            .modifier(CreateCategoryAlert())
             .modifier(LocationAlert(locationServiceEnabled: $mapVM.locationServiceAlert,
                                     locationWhenInUseEnabled: $mapVM.locationWhenInUseAlert))
-        
-            .modifier(CreateCategoryAlert())
     }
 }
 

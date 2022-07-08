@@ -7,10 +7,10 @@
 /*  Layout Size
  
  1. 고정 size
-    - PinView
+ - PinView
  
  2. Dynamic size
-    - 그 외
+ - 그 외
  */
 
 import SwiftUI
@@ -149,6 +149,7 @@ struct EmotionPicker: View {
                 coreVM.pinEmotion = emotion
                 coreVM.pinLatitude = mapVM.region.center.latitude //MARK: Need to check
                 coreVM.pinLongitude = mapVM.region.center.longitude
+                coreVM.pinCreateAt = Date()
                 sm.emotionSelectingMode.toggle()
                 coreVM.addPin()
                 coreVM.getMapPins() //MARK: Need to check
@@ -180,8 +181,8 @@ struct LocationButton: View {
     var body: some View {
         Button {
             mapVM.userLocationButtonTapped()
-//            print(mapVM.locationManager)
-//            print(mapVM.locationManager?.location) //Good insight -> 위치서비스가 꺼지거나, 접근 권한이 거절되도 locationManager는 남아있으나 location은 nil이된다. 이를 이용하기.
+            //            print(mapVM.locationManager)
+            //            print(mapVM.locationManager?.location) //Good insight -> 위치서비스가 꺼지거나, 접근 권한이 거절되도 locationManager는 남아있으나 location은 nil이된다. 이를 이용하기.
         } label: {
             SideButtonLabel(systemImage: "location.fill")
         }
@@ -207,7 +208,7 @@ struct WhiteBackground<S: Shape, Content: View>: View {
     var width: CGFloat
     var height: CGFloat
     var content: () -> Content
-
+    
     init(_ shape: S, w shapeWidth: CGFloat, h shapeHeight: CGFloat, @ViewBuilder content: @escaping () -> Content) {
         self.shape = shape
         self.width = shapeWidth
@@ -226,19 +227,38 @@ struct WhiteBackground<S: Shape, Content: View>: View {
 }
 
 struct DefaultButton: View {
+    @EnvironmentObject var sm: StateManager
+    @EnvironmentObject var coreVM: CoreDataViewModel
     var text: String
+    
     var body: some View {
-        HStack {
-            Spacer()
-            Text(text)
-                .foregroundColor(.white).bold()
-            Spacer()
+        Button {
+            if coreVM.currentMapPin!.content?.isEmpty ?? true {
+                //fullScreenType 지정 후 toggle
+                sm.fullScreenType = .pinAddView1
+                sm.isFullScreenShow.toggle()
+                
+                //prepare editMode
+                coreVM.selectedPin = coreVM.currentMapPin
+                coreVM.setPin()
+                coreVM.editPinMode = true
+                coreVM.selectedCategory = coreVM.currentCategory
+            } else {
+                //PinDetailView...
+            }
+        } label: {
+            HStack {
+                Spacer()
+                Text(text)
+                    .foregroundColor(.white).bold()
+                Spacer()
+            }
+            .padding(.vertical, 7)
+            .background(
+                RoundedRectangle(cornerRadius: 30, style: .continuous)
+                    .fill(Color("default"))
+            )
         }
-        .padding(.vertical, 7)
-        .background(
-            RoundedRectangle(cornerRadius: 30, style: .continuous)
-                .fill(Color("default"))
-        )
     }
 }
 
@@ -262,9 +282,9 @@ struct DefaultPin: View { //mapView & detailView will use...
     private func backCircle() -> some View {
         if pin.content?.isEmpty ?? true { //미완료 핀
             Circle()
-//                .stroke(Color(pin.category.categoryColor ?? "default"),
-//                        style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
-//                .padding(3)
+            //                .stroke(Color(pin.category.categoryColor ?? "default"),
+            //                        style: StrokeStyle(lineWidth: .ten*0.5, dash: [5, 1.2]))
+            //                .padding(3)
                 .fill(Color("gray"))
         } else { //작성완료 핀
             Circle()
@@ -326,5 +346,57 @@ struct LoopingPinView: View {
                     isUp.toggle()
                 }
             }
+    }
+}
+
+struct EditSectionView<Content: View>: View {
+    let content: () -> Content
+    let title: String
+    init(title: String, @ViewBuilder content: @escaping () -> Content) {
+        self.title = title
+        self.content = content
+    }
+    var body: some View {
+        VStack {
+            Section {
+                ZStack {
+                    RoundedRectangle(cornerRadius: .ten)
+                        .stroke(.gray, lineWidth: 1)
+                        .foregroundColor(.white)
+                    
+                    content()
+                        .padding([.leading, .trailing], .screenW * 0.044)
+                }
+                .frame(height: .ten*4.5)
+            } header: {
+                Text(title)
+                    .font(.system(size: .ten*1.8, weight: .semibold))
+            }
+            .frame(maxWidth: .infinity, maxHeight: .ten*3.5, alignment: .leading)
+        }
+    }
+}
+
+struct CategoryEditBar: View {
+    @EnvironmentObject var coreVM: CoreDataViewModel
+    
+    var body: some View {
+        Menu {
+            Picker(selection: $coreVM.selectedCategory) {
+                ForEach(coreVM.categories, id: \.self) { category in
+                    Text(category.title).tag(category as Category?)
+                }
+            } label: {}
+        } label: {
+            HStack(spacing: .ten*1.5) {
+                Text(coreVM.selectedCategory?.title ?? "No title")
+                    .foregroundColor(.black)
+                Spacer()
+                Image(systemName: "chevron.down")
+                    .font(.callout.bold())
+                    .layoutPriority(1)
+            }
+            .foregroundColor(Color("default"))
+        }
     }
 }
