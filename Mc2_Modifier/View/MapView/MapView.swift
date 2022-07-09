@@ -18,7 +18,7 @@ struct MapView: View {
         Map(coordinateRegion: $mapVM.region,
             interactionModes: .all,
             showsUserLocation: true,
-            annotationItems: coreVM.pins) { pin in
+            annotationItems: coreVM.mapPins) { pin in
             MapAnnotation(coordinate: CLLocationCoordinate2D(
                 latitude: pin.latitude,
                 longitude: pin.longitude)) {

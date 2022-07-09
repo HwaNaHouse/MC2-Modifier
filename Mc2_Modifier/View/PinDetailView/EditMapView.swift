@@ -11,6 +11,7 @@ import MapKit
 struct EditMapView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var coreVM: CoreDataViewModel
+    @EnvironmentObject var mapVM: MapViewModel
     @State private var region = MKCoordinateRegion(center: .defaultLocation, span: .defaultSpan)
     var latitude: Double
     var longitude: Double

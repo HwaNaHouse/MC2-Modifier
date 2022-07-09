@@ -13,12 +13,8 @@ struct CategoryAddView: View {
     @EnvironmentObject var coreVM: CoreDataViewModel
 
     @State var isShowTitleEmptyAlert: Bool = false
-    @State var categoryTitle: String = ""
     
-    @State var color = "red"
     @State var showToggle = false
-    @State var startDate = Date()
-    
     
     @State var isDeleteAlertShowing: Bool = false
     

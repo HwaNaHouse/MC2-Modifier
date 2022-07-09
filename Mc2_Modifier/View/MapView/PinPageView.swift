@@ -17,12 +17,12 @@ struct PinPageView: View {
         if coreVM.currentMapPin != Optional(nil) {
             VStack {
                 Spacer()
-                Pager(page: .withIndex(coreVM.pins.firstIndex(where: {$0 == coreVM.currentMapPin}) ?? 0),
-                      data: coreVM.pins) { pin in
+                Pager(page: .withIndex(coreVM.mapPins.firstIndex(where: {$0 == coreVM.currentMapPin}) ?? 0),
+                      data: coreVM.mapPins) { pin in
                     PageView(pin: pin)
                 }
                       .onPageWillChange { index in
-                          coreVM.currentMapPin = coreVM.pins[index]
+                          coreVM.currentMapPin = coreVM.mapPins[index]
                           mapVM.moveToPinLocation(coreVM.currentMapPin ?? Pin())
                       }
                       .horizontal()
@@ -44,7 +44,7 @@ struct PageView: View {
     @State private var deleteAlert: Bool = false
     var pin: Pin
     var pinIndex: Int {
-        coreVM.pins.firstIndex(of: pin) ?? 0
+        coreVM.mapPins.firstIndex(of: pin) ?? 0
     }
     
     var body: some View {

@@ -181,8 +181,6 @@ struct LocationButton: View {
     var body: some View {
         Button {
             mapVM.userLocationButtonTapped()
-            //            print(mapVM.locationManager)
-            //            print(mapVM.locationManager?.location) //Good insight -> 위치서비스가 꺼지거나, 접근 권한이 거절되도 locationManager는 남아있으나 location은 nil이된다. 이를 이용하기.
         } label: {
             SideButtonLabel(systemImage: "location.fill")
         }
@@ -266,6 +264,7 @@ struct DefaultButton: View {
 //MARK: - PinView's subviews
 //3 types
 struct DefaultPin: View { //mapView & detailView will use...
+    @EnvironmentObject var coreVM: CoreDataViewModel
     var pin: Pin
     
     var body: some View {
@@ -288,12 +287,13 @@ struct DefaultPin: View { //mapView & detailView will use...
                 .fill(Color("gray"))
         } else { //작성완료 핀
             Circle()
-                .fill(Color(pin.category.categoryColor ?? "default"))
+                .fill(Color(coreVM.currentCategory?.categoryColor ?? "default"))
         }
     }
 }
 
-struct SelectedPin: View { //mapView will use...
+struct SelectedPin: View { //mapView will use... 왜인지 모르겠으나, pin.category.categoryColor로 접근하면 즉시 렌더링이 안되고, category.categoryColor로 접근하면 즉시 변경이 된다.
+    @EnvironmentObject var coreVM: CoreDataViewModel
     var pin: Pin
     
     var body: some View {
@@ -303,7 +303,7 @@ struct SelectedPin: View { //mapView will use...
             .offset(y: -.ten*0.45)
             .background(
                 PinShape()
-                    .fill(Color(pin.content?.isEmpty ?? true ? "gray" : pin.category.categoryColor!))
+                    .fill(Color(pin.content?.isEmpty ?? true ? "gray" : coreVM.currentCategory?.categoryColor ?? "default"))
                     .frame(width: .ten*3.6, height: .ten*4.5)
             )
             .offset(y: -.ten*2.25) //PinShape의 height만큼.

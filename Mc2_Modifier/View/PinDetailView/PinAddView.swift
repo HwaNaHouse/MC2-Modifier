@@ -11,6 +11,7 @@ import MapKit
 
 struct PinAddView: View {
     @EnvironmentObject var sm: StateManager
+    @EnvironmentObject var mapVM: MapViewModel
     @EnvironmentObject var coreVM: CoreDataViewModel
     
     @State private var addressName: String = ""
@@ -129,6 +130,11 @@ struct PinAddView: View {
                 .padding()
                 // 주소값 렌더링
                 .onAppear {
+                    if !coreVM.editPinMode {
+                        let region = mapVM.userLocation()
+                        coreVM.pinLatitude = region.center.latitude
+                        coreVM.pinLongitude = region.center.longitude
+                    }
                     locate()
                 }
                 .onChange(of: coreVM.pinLatitude) { _ in
@@ -177,7 +183,10 @@ struct PinAddView: View {
     
     // 해당 위치의 주소값을 가져오는 함수.
     private func locate() {
-        CLGeocoder().reverseGeocodeLocation(CLLocation(latitude: coreVM.pinLatitude, longitude: coreVM.pinLongitude), preferredLocale: Locale(identifier: "Ko_kr"), completionHandler: {(placemarks, error) in
+        
+        CLGeocoder().reverseGeocodeLocation(CLLocation(
+            latitude: coreVM.pinLatitude,
+            longitude: coreVM.pinLongitude), preferredLocale: Locale(identifier: "Ko_kr"), completionHandler: {(placemarks, error) in
             addressName = ""
             if let address: [CLPlacemark] = placemarks {
                 if let admin: String = address.last?.administrativeArea {

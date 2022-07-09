@@ -13,6 +13,7 @@ class CoreDataViewModel: ObservableObject {
     let manager = PersistenceController.shared
     
     @Published var categories: [Category] = []
+    @Published var mapPins: [Pin] = []
     @Published var pins: [Pin] = []
     
     //Map용.
@@ -77,7 +78,7 @@ class CoreDataViewModel: ObservableObject {
         request.sortDescriptors = [NSSortDescriptor(keyPath: \Pin.createAt, ascending: true)]
         
         do {
-            self.pins = try manager.viewContext.fetch(request)
+            self.mapPins = try manager.viewContext.fetch(request)
 //            print("pins fetch")
 //            print(pins)
         } catch let error {
@@ -180,6 +181,7 @@ class CoreDataViewModel: ObservableObject {
             pin = (inWhere == "inMap" ? currentMapPin : selectedPin) //변경점
         } else {
             pin = Pin(context: manager.viewContext)
+            pinCategory = currentCategory
         }
         
         pin.placeName = pinTitle

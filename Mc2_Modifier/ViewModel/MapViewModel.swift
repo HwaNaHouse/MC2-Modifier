@@ -88,6 +88,20 @@ class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
+    func userLocation() -> MKCoordinateRegion {
+        if CLLocationManager.locationServicesEnabled() {
+            if let locationManager = locationManager {
+                if locationManager.authorizationStatus == .authorizedWhenInUse {
+                    if let location = locationManager.location {
+                        return MKCoordinateRegion(center: location.coordinate, span: .defaultSpan)
+                    }
+                }
+            }
+        }
+        return MKCoordinateRegion(center: .defaultLocation, span: .defaultSpan)
+    }
+    
+    
     func moveToPinLocation(_ pin: Pin) {
         withAnimation {
             region = .pinRegion(pin, region: region)
