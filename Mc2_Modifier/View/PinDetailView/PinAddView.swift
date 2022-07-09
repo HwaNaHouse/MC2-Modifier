@@ -22,12 +22,6 @@ struct PinAddView: View {
     
     var emotions: [String] = ["smile", "love", "sad", "soso"]
     
-    var dateFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        return formatter
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             ZStack {
@@ -219,7 +213,7 @@ struct PinAddView: View {
                 .padding(3)
                 .background(
                     Circle() //Need to check - 카테고리 컬러, 카테고리 선택 관련은 selectedPin에서 변경되고, 그 외는 프로퍼티에 반영됨.
-                        .fill(Color(coreVM.selectedPin?.category.categoryColor ?? "default"))
+                        .fill(Color(coreVM.selectedCategory?.categoryColor ?? "default"))
                 )
                 .opacity(
                     emotion == coreVM.pinEmotion ? 1 : 0.2

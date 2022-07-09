@@ -33,17 +33,17 @@ struct EditMapView: View {
                 Spacer()
                 HStack(spacing: 20) {
                     Button {
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        bottomLabel(text: "취소하기", fontColor: .red, backColor: .white)
+                    }
+                    
+                    Button {
                         coreVM.pinLatitude = region.center.latitude
                         coreVM.pinLongitude = region.center.longitude
                         presentationMode.wrappedValue.dismiss()
                     } label: {
                         bottomLabel(text: "현재위치로 변경", fontColor: .white, backColor: Color("default"))
-                    }
-                    
-                    Button {
-                        presentationMode.wrappedValue.dismiss()
-                    } label: {
-                        bottomLabel(text: "취소하기", fontColor: .red, backColor: .white)
                     }
                 }
                 .padding()
