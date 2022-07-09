@@ -239,10 +239,10 @@ struct DefaultButton: View {
                 sm.isFullScreenShow.toggle()
                 
                 //prepare editMode
-                coreVM.selectedPin = coreVM.currentMapPin
+                coreVM.inWhere = "inMap"
                 coreVM.setPin()
                 coreVM.editPinMode = true
-                coreVM.selectedCategory = coreVM.currentCategory
+                coreVM.pinCategory = coreVM.currentCategory
             } else {
                 //PinDetailView...
             }
@@ -382,14 +382,14 @@ struct CategoryEditBar: View {
     
     var body: some View {
         Menu {
-            Picker(selection: $coreVM.selectedCategory) {
+            Picker(selection: $coreVM.pinCategory) {
                 ForEach(coreVM.categories, id: \.self) { category in
                     Text(category.title).tag(category as Category?)
                 }
             } label: {}
         } label: {
             HStack(spacing: .ten*1.5) {
-                Text(coreVM.selectedCategory?.title ?? "No title")
+                Text(coreVM.pinCategory?.title ?? "No title")
                     .foregroundColor(.black)
                 Spacer()
                 Image(systemName: "chevron.down")

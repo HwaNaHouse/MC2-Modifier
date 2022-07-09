@@ -22,7 +22,7 @@ class CoreDataViewModel: ObservableObject {
         didSet { //앱 최초 및 초기 실행 & 카테고리 모두 삭제 시에만 nil.
             //category가 모두 삭제됐을 때는 조건문 통과안되도록.
             if let currentCategory = currentCategory {
-                self.currentCategoryIndex = categories.firstIndex(where: { currentCategory.uuid == $0.uuid }) ?? 0
+                self.currentCategoryIndex = categories.firstIndex(where: { currentCategory == $0 }) ?? 0
                 getMapPins()
             }
         }
@@ -50,13 +50,13 @@ class CoreDataViewModel: ObservableObject {
     @Published var pinLatitude: Double = 30.0 //MARK: Need to check
     @Published var pinLongitude: Double = 120.0
     
+    //Edit용
+    @Published var pinCategory: Category?
+    @Published var inWhere: String = ""
+    
     
     init() {
         getCategories()
-    }
-    
-    func coreDataReset() { //업데이트 취소 시 호출.
-        manager.viewContext.rollback() //reset, rollback,
     }
     
     func getCategories() { //새로 생성, 업데이트, 삭제 시 호출
@@ -108,7 +108,6 @@ class CoreDataViewModel: ObservableObject {
         } else {
             category = Category(context: manager.viewContext)
         }
-        category.uuid = UUID() //MARK: Need to check
         category.title = categoryTitle
         category.startDate = categoryStartDate
         category.photoName = categoryPhoto
@@ -131,6 +130,7 @@ class CoreDataViewModel: ObservableObject {
         categoryPhoto = "sample1"
         categoryColor = "red"
     }
+    
     //Update시 editCategory값을(selectedCategory) 을 attribute에 할당해 준다
     func setCategory() {
         if let category = editCategory {
@@ -152,8 +152,6 @@ class CoreDataViewModel: ObservableObject {
             manager.viewContext.delete(editCategory!)
             manager.saveContext()
             getCategories()
-            
-            //            print("\(categories.map({$0.title}))- \(categories.map({$0.startDate}))")
         }
     }
     
@@ -165,20 +163,21 @@ class CoreDataViewModel: ObservableObject {
     }
     
     func setPin() {
-        if let pin = selectedPin {
+        if let pin = (inWhere == "inMap" ? currentMapPin : selectedPin) { //변경점
             pinTitle = pin.placeName ?? ""
             pinCreateAt = pin.createAt
             pinEmotion = pin.emotion
             pinContent = pin.content ?? ""
             pinLatitude = pin.latitude
             pinLongitude = pin.longitude
+            pinCategory = pin.category
         }
     }
     
     func addPin() {
         var pin: Pin!
         if editPinMode {
-            pin = selectedPin
+            pin = (inWhere == "inMap" ? currentMapPin : selectedPin) //변경점
         } else {
             pin = Pin(context: manager.viewContext)
         }
@@ -190,11 +189,7 @@ class CoreDataViewModel: ObservableObject {
         pin.latitude = pinLatitude
         pin.longitude = pinLongitude
         
-        if editPinMode {
-            pin.category = selectedCategory! //MARK: Need to check
-        } else {
-            pin.category = currentCategory! //nil이 뜰 확률 no.
-        }
+        pin.category = pinCategory!
         
         manager.saveContext()
         resetPin()

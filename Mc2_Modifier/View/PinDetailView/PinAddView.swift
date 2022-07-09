@@ -23,10 +23,10 @@ struct PinAddView: View {
     var emotions: [String] = ["smile", "love", "sad", "soso"]
     
     var body: some View {
-        GeometryReader { geometry in
+        GeometryReader { _ in
             ZStack {
                 VStack(alignment: .leading, spacing: .ten*2) {
-                    Spacer().frame(height: .ten*2)
+                    Spacer().frame(height: .ten/2)
                     
                     Text("핀 완성하기")
                         .font(.largeTitle.bold())
@@ -45,7 +45,7 @@ struct PinAddView: View {
                                     .modifier(ClearButton(text: $coreVM.pinTitle))
                                 Spacer()
                                 Text("\(coreVM.pinTitle.count)/15")
-                                    .font(Font.system(size: 16, design: .rounded))
+                                    .font(Font.system(size: .ten*1.6, design: .rounded))
                                     .foregroundColor(.black.opacity(0.2))
                                     .onChange(of: coreVM.pinTitle) { _ in
                                         coreVM.pinTitle = String(coreVM.pinTitle.prefix(15))
@@ -134,6 +134,7 @@ struct PinAddView: View {
                 .onChange(of: coreVM.pinLatitude) { _ in
                     locate()
                 }
+                
                 if showCalendar {
                     Rectangle()
                         .fill(.ultraThinMaterial)
@@ -158,10 +159,9 @@ struct PinAddView: View {
                     sm.isFullScreenShow = false
                     //취소 로직
                     DispatchQueue.main.asyncAfter(deadline: .now()+0.2) { //sheet내려가는동안 순간적으로 초기화되는 모습 보이는 것이 눈에 밟혀서.
-                        coreVM.selectedPin = nil
                         coreVM.resetPin()
                         coreVM.editPinMode = false
-                        coreVM.selectedCategory = nil
+                        coreVM.pinCategory = nil
                     }
                 } label: {
                     Text("작성 취소")
@@ -212,8 +212,8 @@ struct PinAddView: View {
                 .frame(width: .ten*2.8, height: .ten*2.8)
                 .padding(3)
                 .background(
-                    Circle() //Need to check - 카테고리 컬러, 카테고리 선택 관련은 selectedPin에서 변경되고, 그 외는 프로퍼티에 반영됨.
-                        .fill(Color(coreVM.selectedCategory?.categoryColor ?? "default"))
+                    Circle()
+                        .fill(Color(coreVM.pinCategory?.categoryColor ?? "default"))
                 )
                 .opacity(
                     emotion == coreVM.pinEmotion ? 1 : 0.2

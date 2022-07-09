@@ -34,7 +34,7 @@ struct MainView: View {
                             MakingPinButton() // third floor
                         }
                     }
-                    Spacer().frame(height: .screenH / 9.3)
+                    Spacer().frame(height: .screenH / 8.5)
                 } // 2층
                 // PinPageView 들어갈 곳
                 PinPageView()
